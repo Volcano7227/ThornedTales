@@ -664,13 +664,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9c01151c956c3c40ade184c1a2ec74a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomPrefab: {fileID: 29604558801222284, guid: e3776eee0b4f39740a8182ff5a0d5f38, type: 3}
-  maxRooms: 12
-  minRooms: 6
+  defaultRoomPrefab: {fileID: 29604558801222284, guid: e3776eee0b4f39740a8182ff5a0d5f38, type: 3}
+  bossRoomPrefab: {fileID: 29604558801222284, guid: 6c8dd295febafb54f8afdb2480e1e5b1, type: 3}
+  maxRooms: 8
+  minRooms: 5
   gridSizeX: 20
   gridSizeY: 20
-  roomWidth: 20
-  roomHeight: 12
+  roomWidth: 40
+  roomHeight: 24
 --- !u!4 &5514486840505142711
 Transform:
   m_ObjectHideFlags: 0

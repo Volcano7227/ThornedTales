@@ -5,50 +5,50 @@ using UnityEngine.AI;
 
 public class BaseEnemyBehavior : MonoBehaviour
 {
-    [SerializeField] Transform destination;
+    [SerializeField] int Hp;
+    
     NavMeshAgent agent;
+    GameObject player;
 
-    private int hp;
     private bool isDead;
-
-    public int Hp
-    {
-        get { return hp; }
-        private set
-        {
-            if (value < 0)
-                hp = value;
-            else
-                hp = 1;
-        }
-    }
-
 
 
     void Awake()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
         agent = GetComponent<NavMeshAgent>();
-        agent.destination = destination.position;
+        agent.destination = player.transform.position;
     }
 
     void Update()
     {
-        agent.destination = destination.position;
+        agent.destination = player.transform.position;
+        if (isDead)
+            manageDeath();
     }
 
-    private void OnTriggerEnter(Collider collider)
+    private void manageDeath()
     {
-        
+        print("An ennemy died");
+        gameObject.SetActive(false);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    public void inflictDamage(int damage)
     {
-        print("hit");
-        if (collision.gameObject.tag == "PlayerBullet")
-        {
-            Hp--;
-            if (Hp < 0)
-                isDead = true;
-        }
+        Hp = Hp - damage;
+        if (Hp <= 0)
+            isDead = true;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "PlayerBullet")
+            inflictDamage(1);
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.tag == "Player")
+            print("Player hit");//player.inflictDamage(1);
     }
 }

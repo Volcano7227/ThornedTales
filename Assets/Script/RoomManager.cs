@@ -223,23 +223,23 @@ public class RoomManager : MonoBehaviour
 
         if (TryGetRoomAt(new Vector2Int(x + 1, y), out Room rigthRoom) && roomGrid[x + 1, y] != 0)
         {
-            currentRoom.PlaceDoor(Vector2Int.right);
-            rigthRoom.PlaceDoor(Vector2Int.left);
+            currentRoom.PlaceDoor(Vector2Int.right, rigthRoom.LeftDoor);
+            rigthRoom.PlaceDoor(Vector2Int.left, currentRoom.RigthDoor);
         }
         if (TryGetRoomAt(new Vector2Int(x - 1,y),out Room leftRoom) && roomGrid[x - 1 ,y] != 0)
         {
-            currentRoom.PlaceDoor(Vector2Int.left);
-            leftRoom.PlaceDoor(Vector2Int.right);
+            currentRoom.PlaceDoor(Vector2Int.left, leftRoom.RigthDoor);
+            leftRoom.PlaceDoor(Vector2Int.right, currentRoom.LeftDoor);
         }
         if (TryGetRoomAt(new Vector2Int(x, y + 1), out Room TopRoom) && roomGrid[x, y + 1] != 0)
         {
-            currentRoom.PlaceDoor(Vector2Int.up);
-            TopRoom.PlaceDoor(Vector2Int.down);
+            currentRoom.PlaceDoor(Vector2Int.up, TopRoom.BottomDoor);
+            TopRoom.PlaceDoor(Vector2Int.down, currentRoom.TopDoor);
         }
         if (TryGetRoomAt(new Vector2Int(x, y - 1 ), out Room BottomRoom) && roomGrid[x, y - 1] != 0)
         {
-            currentRoom.PlaceDoor(Vector2Int.down);
-            BottomRoom.PlaceDoor(Vector2Int.up);
+            currentRoom.PlaceDoor(Vector2Int.down, BottomRoom.TopDoor);
+            BottomRoom.PlaceDoor(Vector2Int.up, currentRoom.BottomDoor);
         }
     }
 

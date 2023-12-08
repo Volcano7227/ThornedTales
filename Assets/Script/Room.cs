@@ -5,40 +5,57 @@ using UnityEngine;
 //From / Inspired From : https://www.youtube.com/watch?v=eK2SlZxNjiU
 public class Room : MonoBehaviour
 {
-    [SerializeField] GameObject topDoor;
-    [SerializeField] GameObject bottomDoor;
-    [SerializeField] GameObject leftDoor;
-    [SerializeField] GameObject rigthDoor;
+    [SerializeField] Door topDoor;
+    [SerializeField] Door bottomDoor;
+    [SerializeField] Door leftDoor;
+    [SerializeField] Door rigthDoor;
 
     public bool StartingDoor = false;
     public bool EndingDoor = false;
     public Vector2Int RoomIndex { get; set; }
+    public Door TopDoor => topDoor;
+    public Door BottomDoor => bottomDoor;
+    public Door LeftDoor => leftDoor;
+    public Door RigthDoor => rigthDoor;
+
     List<Renderer> WallsRenderer;
     private void Awake()
     {
         WallsRenderer = new();
         foreach (Transform child in transform.GetChild(0))
         {
-            if(child.gameObject.layer == 6)
+            if (child.gameObject.layer == 6)
             {
                 WallsRenderer.Add(child.GetComponent<Renderer>());
             }
         }
     }
-    public void PlaceDoor(Vector2Int direction)
+    public void PlaceDoor(Vector2Int direction, Door fromDoor)
     {
-        if(direction == Vector2Int.up) 
-            topDoor.SetActive(true);
+        if (direction == Vector2Int.up)
+        {
+            topDoor.gameObject.SetActive(true);
+            topDoor.ConnectTo(fromDoor);
+        }
 
         if (direction == Vector2Int.down)
-            bottomDoor.SetActive(true);
+        {
+            bottomDoor.gameObject.SetActive(true);
+            bottomDoor.ConnectTo(fromDoor);
+        }
 
         if (direction == Vector2Int.left)
-            leftDoor.SetActive(true);
+        {
+            leftDoor.gameObject.SetActive(true);
+            leftDoor.ConnectTo(fromDoor);
+        }
 
         if (direction == Vector2Int.right)
-            rigthDoor.SetActive(true);
+        {
+            rigthDoor.gameObject.SetActive(true);
+            rigthDoor.ConnectTo(fromDoor);
+        }
     }
     public void PaintWall(Color color) => WallsRenderer.ForEach(wall => wall.material.color = color);
-    
+
 }

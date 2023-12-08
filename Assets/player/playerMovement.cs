@@ -2,52 +2,43 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Windows;
 
 [RequireComponent(typeof(Rigidbody2D))]
-
-public class playerMovement : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] public float speed;
-    [SerializeField] public List<Material> mats;
+    [SerializeField] float speed;
+    [SerializeField] List<Sprite> sprites;
 
-    PlayerControls controls;
     Rigidbody2D rb;
-    MeshRenderer rd;
-    Vector2 moveInput;
-    InputBinding[] inputs;
+    SpriteRenderer rd;
+    Vector2 movementInput;
 
     // Start is called before the first frame update
     void Awake()
     {
-        controls = new PlayerControls();
         rb = GetComponent<Rigidbody2D>();
-        rd = GetComponent<MeshRenderer>();
-        rd.material = mats[0]; //starts down
+        rd = GetComponent<SpriteRenderer>();
+        rd.sprite = sprites[0]; //starts down
     }
-
-    private void OnEnable()
-    {
-       controls.Player_map.Enable();
-    }
-    private void OnDisable()
-    {
-        controls.Player_map.Disable();
-    }
-
     // Update is called once per frame
     void Update()
     {
-        moveInput = controls.Player_map.movement.ReadValue<Vector2>();
-        rb.velocity = moveInput * speed;
-
-        if (Keyboard.current.upArrowKey.IsPressed())
-            rd.material = mats[1]; 
-        else if (Keyboard.current.leftArrowKey.IsPressed())
-            rd.material = mats[2];
-        else if (Keyboard.current.rightArrowKey.IsPressed())
-            rd.material = mats[3];
-        else if (Keyboard.current.downArrowKey.IsPressed())
-            rd.material = mats[0];
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+            rd.sprite = sprites[1]; 
+        else if (Input.GetKeyDown(KeyCode.LeftArrow))
+            rd.sprite = sprites[2];
+        else if (Input.GetKeyDown(KeyCode.RightArrow))
+            rd.sprite = sprites[3];
+        else if (Input.GetKeyDown(KeyCode.DownArrow))
+            rd.sprite = sprites[0];
+    }
+    private void FixedUpdate()
+    {
+        rb.velocity = movementInput;
+    }
+    private void OnMove(InputValue inputValue)
+    {
+        movementInput = inputValue.Get<Vector2>();
+        Debug.Log("Moving");
     }
 }

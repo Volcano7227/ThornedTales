@@ -3,43 +3,41 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(Rigidbody2D))]
-
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] public float speed;
-    [SerializeField] public List<Material> mats;
+    [SerializeField] float speed;
+    [SerializeField] List<Material> mats;
 
     Rigidbody2D rb;
-    MeshRenderer rd;
-    Vector2 moveInput;
-    InputBinding[] inputs;
+    //MeshRenderer rd;
+    Vector2 movementInput;
 
     // Start is called before the first frame update
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        rd = GetComponent<MeshRenderer>();
-        rd.material = mats[0]; //starts down
+        //rd = GetComponent<MeshRenderer>();
+        //rd.material = mats[0]; //starts down
     }
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.UpArrow))
+       /* if (Input.GetKeyDown(KeyCode.UpArrow))
             rd.material = mats[1]; 
         else if (Input.GetKeyDown(KeyCode.LeftArrow))
             rd.material = mats[2];
         else if (Input.GetKeyDown(KeyCode.RightArrow))
             rd.material = mats[3];
         else if (Input.GetKeyDown(KeyCode.DownArrow))
-            rd.material = mats[0];
+            rd.material = mats[0];*/
     }
     private void FixedUpdate()
     {
-        rb.velocity = new Vector2(1,0.5f);
+        rb.velocity = movementInput;
     }
-    private void OnMove(InputValue inputValue)
+    public void OnMove()
     {
+        //movementInput = inputValue.Get<Vector2>();
         Debug.Log("Moving");
     }
 }

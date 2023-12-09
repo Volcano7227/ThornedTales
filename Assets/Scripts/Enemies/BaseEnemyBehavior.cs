@@ -7,7 +7,6 @@ public class BaseEnemyBehavior : MonoBehaviour
 {
     [SerializeField] int Hp;
     
-    NavMeshAgent agent;
     GameObject player;
 
     private bool isDead;
@@ -16,13 +15,10 @@ public class BaseEnemyBehavior : MonoBehaviour
     void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        agent = GetComponent<NavMeshAgent>();
-        agent.destination = player.transform.position;
     }
 
     void Update()
     {
-        agent.destination = player.transform.position;
         if (isDead)
             manageDeath();
     }
@@ -49,6 +45,8 @@ public class BaseEnemyBehavior : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.tag == "Player")
+        {
             print("Player hit");//player.inflictDamage(1);
+        }
     }
 }

@@ -5,48 +5,35 @@ using UnityEngine;
 
 public class Door : MonoBehaviour
 {
-    enum DoorType { Rigth, Left, Top, Bottom }
+    [SerializeField] Vector2 offset;
+    [SerializeField] int playerLayer;
 
-    [SerializeField] DoorType doorType = DoorType.Rigth;
-    [SerializeField] float offset = 2;
-    [SerializeField] LayerMask playerLayer;
-
+    Room parentRoom;
     Vector3 spawnOffSet;
     public Vector3 SpawnPos => spawnOffSet + transform.position;
     public Door LeadTo { get; private set; } 
 
     private void Awake()
     {
-        switch (doorType)
-        {
-            case DoorType.Rigth:
-                spawnOffSet = new Vector3(-offset,0,0);
-                break;
-            case DoorType.Left:
-                spawnOffSet = new Vector3(offset,0,0);
-                break;
-            case DoorType.Top:
-                spawnOffSet = new Vector3(0,-offset,0);
-                break;
-            case DoorType.Bottom:
-                spawnOffSet = new Vector3(0,offset,0);
-                break;
-        }
+        parentRoom = GetComponentInParent<Room>();
+        spawnOffSet = new Vector3(offset.x,offset.y,0);
     }
     public void ConnectTo(Door door) => LeadTo = door;
 
     public void GoThrough(GameObject gameObject)
     {
         Debug.Log($"Going Through door to {LeadTo.name}");
+        gameObject.transform.SetPositionAndRotation(LeadTo.SpawnPos, gameObject.transform.rotation);
+        parentRoom.DesactivateRoom();
+        LeadTo.parentRoom.ActivateRoom();
         /* TO-DO
-         *Handle TP
-         *Handle Cam mouvement
          *Possibly handle Anim or Effect When going to other Room
          */
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == playerLayer)
+        Debug.Log($"CollisionDoor{name}");
+        if (collision.gameObject.layer == 6)
             GoThrough(collision.gameObject);
     }
     private void OnDrawGizmos()

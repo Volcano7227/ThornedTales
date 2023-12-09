@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 //From / Inspired From : https://www.youtube.com/watch?v=eK2SlZxNjiU
@@ -9,9 +10,7 @@ public class Room : MonoBehaviour
     [SerializeField] Door bottomDoor;
     [SerializeField] Door leftDoor;
     [SerializeField] Door rigthDoor;
-
-    public bool StartingDoor = false;
-    public bool EndingDoor = false;
+    [SerializeField] Camera roomCamera;
     public Vector2Int RoomIndex { get; set; }
     public Door TopDoor => topDoor;
     public Door BottomDoor => bottomDoor;
@@ -58,4 +57,6 @@ public class Room : MonoBehaviour
     }
     public void PaintWall(Color color) => WallsRenderer.ForEach(wall => wall.material.color = color);
 
+    public void ActivateRoom() => roomCamera.gameObject.SetActive(true);
+    public void DesactivateRoom() => roomCamera.gameObject.SetActive(false);
 }

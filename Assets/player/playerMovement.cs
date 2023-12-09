@@ -34,11 +34,10 @@ public class PlayerMovement : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        rb.velocity = movementInput;
+        rb.velocity = movementInput * speed;
     }
     private void OnMove(InputValue inputValue)
     {
         movementInput = inputValue.Get<Vector2>();
-        Debug.Log("Moving");
     }
 }

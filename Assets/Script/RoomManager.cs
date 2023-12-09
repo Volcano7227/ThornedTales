@@ -97,7 +97,7 @@ public class RoomManager : MonoBehaviour
             case Direction.Rigth:
                 return new Vector2Int(gridX + 1, gridY);
             default:
-                throw new System.Exception("Wtf how/ You stupid");
+                throw new System.Exception("Wtf how You stupid");
         }
     }
     void GenerateBossRoom()
@@ -144,7 +144,7 @@ public class RoomManager : MonoBehaviour
         initialRoom.name = $"StartingRoom-{roomCount}";
         Room startingRoom = initialRoom.GetComponent<Room>();
         startingRoom.RoomIndex = startingRoomId;
-        startingRoom.StartingDoor = true;
+        startingRoom.ActivateRoom();
         startingRoom.PaintWall(Color.green);
         roomList.Add(initialRoom);
     }

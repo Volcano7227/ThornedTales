@@ -144,8 +144,6 @@ public class RoomManager : MonoBehaviour
         initialRoom.name = $"StartingRoom-{roomCount}";
         Room startingRoom = initialRoom.GetComponent<Room>();
         startingRoom.RoomIndex = startingRoomId;
-        startingRoom.ActivateRoom();
-        startingRoom.PaintWall(Color.green);
         roomList.Add(initialRoom);
     }
     bool TryGenerateRoom(Vector2Int roomId, GameObject RoomTypePrefab, bool randomzied = true, bool sizeLimited = true, bool adjacentFiltered = true, bool adjacentToNoRoom = false)

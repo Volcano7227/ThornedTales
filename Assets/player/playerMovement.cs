@@ -6,9 +6,14 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] float speed;
+    /*
+     * --Warning--
+     * Faire Attention si on fait des powerups or shit like that augment speed
+     */
+    [SerializeField] float DefaultSpeed;
     [SerializeField] List<Sprite> sprites;
 
+    float speed;
     Rigidbody2D rb;
     SpriteRenderer rd;
     Vector2 movementInput;
@@ -16,6 +21,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        speed = DefaultSpeed;
         rb = GetComponent<Rigidbody2D>();
         rd = GetComponent<SpriteRenderer>();
         rd.sprite = sprites[0]; //starts down
@@ -36,6 +42,9 @@ public class PlayerMovement : MonoBehaviour
     {
         rb.velocity = movementInput * speed;
     }
+
+    public void FreezeMovement() => speed = 0;
+    public void UnFreezeMovement() => speed = DefaultSpeed;
     private void OnMove(InputValue inputValue)
     {
         movementInput = inputValue.Get<Vector2>();

@@ -10,24 +10,22 @@ public class Room : MonoBehaviour
     [SerializeField] Door bottomDoor;
     [SerializeField] Door leftDoor;
     [SerializeField] Door rigthDoor;
-    [SerializeField] Camera roomCamera;
+    [SerializeField] Transform AnchorCam;
+
+    public float timeForTransitionCam { get; private set; } = 1.5f;
     public Vector2Int RoomIndex { get; set; }
     public Door TopDoor => topDoor;
     public Door BottomDoor => bottomDoor;
     public Door LeftDoor => leftDoor;
     public Door RigthDoor => rigthDoor;
 
-    List<Renderer> WallsRenderer;
+    Camera mainCamera;
+    PlayerMovement playerMovement;
+
     private void Awake()
     {
-        WallsRenderer = new();
-        foreach (Transform child in transform.GetChild(0))
-        {
-            if (child.gameObject.layer == 6)
-            {
-                WallsRenderer.Add(child.GetComponent<Renderer>());
-            }
-        }
+        playerMovement = FindObjectOfType<PlayerMovement>();
+        mainCamera = Camera.main;
     }
     public void PlaceDoor(Vector2Int direction, Door fromDoor)
     {
@@ -55,8 +53,25 @@ public class Room : MonoBehaviour
             rigthDoor.ConnectTo(fromDoor);
         }
     }
-    public void PaintWall(Color color) => WallsRenderer.ForEach(wall => wall.material.color = color);
+    public void MoveCamToRoom() => StartCoroutine(MoveCam());
+    IEnumerator MoveCam()
+    {
+        playerMovement.FreezeMovement();
+        float startTime = Time.time;
+        float journeyLength = Vector3.Distance(mainCamera.transform.position, AnchorCam.position);
+        float speed = journeyLength / timeForTransitionCam;
 
-    public void ActivateRoom() => roomCamera.gameObject.SetActive(true);
-    public void DesactivateRoom() => roomCamera.gameObject.SetActive(false);
+        while (mainCamera.transform.position != AnchorCam.position)
+        {
+            float distCovered = (Time.time - startTime) * speed;
+
+            float fractionOfJourney = distCovered / journeyLength;
+
+            mainCamera.transform.position = Vector3.Lerp(mainCamera.transform.position, AnchorCam.position, fractionOfJourney);
+            yield return null;
+        }
+        playerMovement.UnFreezeMovement();
+        Debug.Log("Arrived At Destination");
+    }
+
 }

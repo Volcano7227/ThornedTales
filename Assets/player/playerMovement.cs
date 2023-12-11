@@ -18,19 +18,21 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         rd = GetComponent<SpriteRenderer>();
-        rd.sprite = sprites[0]; //starts down
+        rd.sprite = sprites[0]; //starts idle
     }
     // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.UpArrow))
-            rd.sprite = sprites[1]; 
+            rd.sprite = sprites[1];                     // up
         else if (Input.GetKeyDown(KeyCode.LeftArrow))
-            rd.sprite = sprites[2];
+            rd.sprite = sprites[2];                     // left
         else if (Input.GetKeyDown(KeyCode.RightArrow))
-            rd.sprite = sprites[3];
+            rd.sprite = sprites[3];                     // right
         else if (Input.GetKeyDown(KeyCode.DownArrow))
-            rd.sprite = sprites[0];
+            rd.sprite = sprites[4];                     // down
+        else 
+            rd.sprite = sprites[0];                     // idle
     }
     private void FixedUpdate()
     {
@@ -39,6 +41,5 @@ public class PlayerMovement : MonoBehaviour
     private void OnMove(InputValue inputValue)
     {
         movementInput = inputValue.Get<Vector2>();
-        Debug.Log("Moving");
     }
 }

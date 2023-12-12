@@ -12,7 +12,6 @@ public class PlayerMovement : MonoBehaviour
      * Faire Attention si on fait des powerups or shit like that augment speed
      */
     [SerializeField] float DefaultSpeed;
-    [SerializeField] List<Sprite> sprites;
 
     float speed;
     Rigidbody2D rb;
@@ -35,7 +34,7 @@ public class PlayerMovement : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        rb.velocity = movementInput * speed * Time.fixedDeltaTime;
+        rb.velocity = movementInput * speed;
     }
 
     public void FreezeMovement() => speed = 0;

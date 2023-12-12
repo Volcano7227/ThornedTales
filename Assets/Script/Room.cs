@@ -21,9 +21,11 @@ public class Room : MonoBehaviour
 
     Camera mainCamera;
     PlayerMovement playerMovement;
-
+    Door[] DoorInTheRoom;
+    bool Cleared;
     private void Awake()
     {
+        DoorInTheRoom = new Door[] {TopDoor,BottomDoor,LeftDoor,RigthDoor};
         playerMovement = FindObjectOfType<PlayerMovement>();
         mainCamera = Camera.main;
     }
@@ -31,30 +33,49 @@ public class Room : MonoBehaviour
     {
         if (direction == Vector2Int.up)
         {
-            topDoor.gameObject.SetActive(true);
+            topDoor.Activate();
             topDoor.ConnectTo(fromDoor);
         }
 
         if (direction == Vector2Int.down)
         {
-            bottomDoor.gameObject.SetActive(true);
+            bottomDoor.Activate();
             bottomDoor.ConnectTo(fromDoor);
         }
 
         if (direction == Vector2Int.left)
         {
-            leftDoor.gameObject.SetActive(true);
+            leftDoor.Activate();
             leftDoor.ConnectTo(fromDoor);
         }
 
         if (direction == Vector2Int.right)
         {
-            rigthDoor.gameObject.SetActive(true);
+            rigthDoor.Activate();
             rigthDoor.ConnectTo(fromDoor);
         }
     }
-    public void MoveCamToRoom() => StartCoroutine(MoveCam());
-    IEnumerator MoveCam()
+    [ContextMenu("LockRoom")]
+    public void LockRoom()
+    {
+        foreach (Door door in DoorInTheRoom)
+        {
+            if (door.Active)
+                door.LockDoor();
+        }
+    }
+    [ContextMenu("ClearRoom")]
+    public void ClearRoom()
+    {
+        Cleared = true;
+        foreach (Door door in DoorInTheRoom)
+        {
+            if(door.Active)
+                door.UnlockDoor();
+        }
+    }
+    public void EnterRoom() => StartCoroutine(MoveToRoom());
+    IEnumerator MoveToRoom()
     {
         playerMovement.FreezeMovement();
         float startTime = Time.time;
@@ -71,6 +92,9 @@ public class Room : MonoBehaviour
             yield return null;
         }
         playerMovement.UnFreezeMovement();
+        
+        if(!Cleared)
+            LockRoom();
         Debug.Log("Arrived At Destination");
     }
 

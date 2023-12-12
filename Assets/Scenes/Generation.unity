@@ -813,7 +813,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultRoomPrefab: {fileID: 29604558801222284, guid: e3776eee0b4f39740a8182ff5a0d5f38, type: 3}
-  bossRoomPrefab: {fileID: 29604558801222284, guid: c95fd4ea04fdf364bb05e8d1631bbcde, type: 3}
+  bossRoomPrefab: {fileID: 29604558801222284, guid: acdd783797b9e39429d8e6b482679b92, type: 3}
   maxRooms: 8
   minRooms: 5
   gridSizeX: 20

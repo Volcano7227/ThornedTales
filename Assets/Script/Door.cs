@@ -7,10 +7,12 @@ public class Door : MonoBehaviour
 {
     [SerializeField] Vector2 offset;
     [SerializeField] int playerLayer;
+    [SerializeField] GameObject lockedCounterPart;
 
+    public GameObject LockedConterPart => lockedCounterPart;
     Room parentRoom;
     Vector3 spawnOffSet;
-
+    public bool Active { get; private set; }
     public Vector3 SpawnPos => spawnOffSet + transform.position;
     public Door LeadTo { get; private set; }
 
@@ -23,16 +25,28 @@ public class Door : MonoBehaviour
 
     public void GoThrough(GameObject player)
     {
-        LeadTo.parentRoom.MoveCamToRoom();
+        LeadTo.parentRoom.EnterRoom();
         player.transform.SetPositionAndRotation(LeadTo.SpawnPos, player.transform.rotation);
-        /* TO-DO
-         *Possibly handle Anim or Effect When going to other Room (Doing)
-         */
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.layer == 6)
             GoThrough(collision.gameObject);
+    }
+    public void Activate()
+    {
+        gameObject.SetActive(true);
+        Active = true;
+    }
+    public void LockDoor()
+    {
+        LockedConterPart.SetActive(true);
+        gameObject.SetActive(false);
+    }
+    public void UnlockDoor()
+    {
+        LockedConterPart.SetActive(false);
+        gameObject.SetActive(true);
     }
     private void OnDrawGizmos()
     {

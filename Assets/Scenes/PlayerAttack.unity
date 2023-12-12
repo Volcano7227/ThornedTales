@@ -267,6 +267,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 8650562422835307375, guid: 5b79f89366128154c9bfe0e195860f62, type: 3}
+      propertyPath: fireDelay
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8650562422835307375, guid: 5b79f89366128154c9bfe0e195860f62, type: 3}
+      propertyPath: projectile
+      value: 
+      objectReference: {fileID: 2295487465848597534, guid: eba9b5836c42ceb4ab23882e64ff196b, type: 3}
+    - target: {fileID: 8650562422835307375, guid: 5b79f89366128154c9bfe0e195860f62, type: 3}
+      propertyPath: bulletSpeed
+      value: 7.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8650562422835307375, guid: 5b79f89366128154c9bfe0e195860f62, type: 3}
+      propertyPath: DefaultSpeed
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

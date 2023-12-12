@@ -5,17 +5,21 @@ using UnityEngine;
 public class BulletController : MonoBehaviour
 {
     public float lifeTime;
+    public Animator animator;
+    public Rigidbody2D rb;
 
     // Start is called before the first frame update
     void Start()
     {
         StartCoroutine(DeathDelay());
+        animator = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        
+        rb.velocity = Vector3.zero;
+        animator.SetTrigger("Explode");
     }
 
     IEnumerator DeathDelay()

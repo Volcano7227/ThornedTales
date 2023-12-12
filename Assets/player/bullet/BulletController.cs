@@ -7,7 +7,7 @@ public class BulletController : MonoBehaviour
     public float lifeTime;
     public Animator animator;
     public Rigidbody2D rb;
-    BoxCollider2D collider;
+    public BoxCollider2D coll;
 
     // Start is called before the first frame update
     void Start()
@@ -15,13 +15,12 @@ public class BulletController : MonoBehaviour
         StartCoroutine(DeathDelay());
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
-        collider = GetComponent<BoxCollider2D>();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         rb.velocity = Vector3.zero;
-        collider.enabled = false;
+        coll.enabled = false;
         animator.SetTrigger("Explode");
     }
 

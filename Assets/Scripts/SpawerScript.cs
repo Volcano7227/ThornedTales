@@ -20,9 +20,14 @@ public class SpawnerScript : MonoBehaviour
     //Random generator
     static System.Random random = new System.Random();
 
+    //Object pool
+    [SerializeField] GameObject bulletObjectPool;
+    ObjectPool objectPoolScript;
+
     void Start()
     {
         timeTillSpawn = random.Next(minTimeToSpawn, maxTimeToSpawn);
+        objectPoolScript = bulletObjectPool.GetComponent<ObjectPool>();
     }
 
     void Update()
@@ -38,7 +43,7 @@ public class SpawnerScript : MonoBehaviour
     /// </summary>
     void Spawn()
     {
-        GameObject obj = ObjectPool.objectPoolInstance.GetPooledObject(objectToSpawn);
+        GameObject obj = objectPoolScript.objectPoolInstance.GetPooledObject(objectToSpawn);
         if (obj != null)
         {
             obj.transform.position = new Vector3(random.Next(minZoneSpawn, maxZoneSpawn), transform.position.y, transform.position.z);

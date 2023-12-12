@@ -14,15 +14,21 @@ public class BaseEnemyShoot : MonoBehaviour
     //GameObject to spawn
     [SerializeField] GameObject objectToSpawn;
 
+    //Object pool
+    [SerializeField] GameObject bulletObjectPool;
+    ObjectPool objectPoolScript;
+
     void Start()
     {
         timeTillShot = shotCooldown;
+        objectPoolScript = bulletObjectPool.GetComponent<ObjectPool>();
     }
 
     void Update()
     {
         if (canShoot)
         {
+            print(timeTillShot);
             if (timeTillShot >= 0)
                 timeTillShot -= Time.deltaTime;
             else
@@ -36,11 +42,15 @@ public class BaseEnemyShoot : MonoBehaviour
     /// </summary>
     void Shoot()
     {
-        GameObject obj = ObjectPool.objectPoolInstance.GetPooledObject(objectToSpawn);
+        GameObject obj = objectPoolScript.objectPoolInstance.GetPooledObject(objectToSpawn);
         if (obj != null)
         {
             obj.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
             obj.SetActive(true);
+        }
+        else 
+        {
+            print("No bullet found.");
         }
         timeTillShot = shotCooldown;
     }

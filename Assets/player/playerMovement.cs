@@ -4,39 +4,31 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody2D))]
+
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] float speed;
-    [SerializeField] List<Sprite> sprites;
 
     Rigidbody2D rb;
-    SpriteRenderer rd;
     Vector2 movementInput;
+    public Animator animator;
 
     // Start is called before the first frame update
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        rd = GetComponent<SpriteRenderer>();
-        rd.sprite = sprites[0]; //starts idle
     }
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.UpArrow))
-            rd.sprite = sprites[1];                     // up
-        else if (Input.GetKeyDown(KeyCode.LeftArrow))
-            rd.sprite = sprites[2];                     // left
-        else if (Input.GetKeyDown(KeyCode.RightArrow))
-            rd.sprite = sprites[3];                     // right
-        else if (Input.GetKeyDown(KeyCode.DownArrow))
-            rd.sprite = sprites[4];                     // down
-        else 
-            rd.sprite = sprites[0];                     // idle
+        // video: https://www.youtube.com/watch?v=whzomFgjT50
+        animator.SetFloat("Horizontal", movementInput.x);
+        animator.SetFloat("Vertical", movementInput.y);
+        animator.SetFloat("Speed", movementInput.sqrMagnitude);
     }
     private void FixedUpdate()
     {
-        rb.velocity = movementInput;
+        rb.velocity = movementInput * speed * Time.fixedDeltaTime;
     }
     private void OnMove(InputValue inputValue)
     {

@@ -7,8 +7,13 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] float speed;
+    /*
+     * --Warning--
+     * Faire Attention si on fait des powerups or shit like that augment speed
+     */
+    [SerializeField] float DefaultSpeed;
 
+    float speed;
     Rigidbody2D rb;
     Vector2 movementInput;
     public Animator animator;
@@ -21,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        speed = DefaultSpeed;
         rb = GetComponent<Rigidbody2D>();
     }
     // Update is called once per frame
@@ -47,8 +53,11 @@ public class PlayerMovement : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        rb.velocity = movementInput * speed * Time.fixedDeltaTime;
+        rb.velocity = movementInput * speed;
     }
+
+    public void FreezeMovement() => speed = 0;
+    public void UnFreezeMovement() => speed = DefaultSpeed;
     private void OnMove(InputValue inputValue)
     {
         movementInput = inputValue.Get<Vector2>();

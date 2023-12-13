@@ -10,9 +10,10 @@ public class EnemyBullet : MonoBehaviour
 
     //Hit sequence
     /*bool hasPlayedSound = false;
-    AudioSource hitSound;
-    float hitPlayDelay = 0.1f;
-    ParticleSystem hitEffect;*/
+    AudioSource hitSound;*/
+    [SerializeField] float animationDelay = 5f;
+    float currentAnimDelay;
+    Animator animator;
     bool hasHit = false;
 
     GameObject player;
@@ -28,6 +29,7 @@ public class EnemyBullet : MonoBehaviour
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        currentAnimDelay = animationDelay;
     }
 
     /// <summary>
@@ -37,8 +39,9 @@ public class EnemyBullet : MonoBehaviour
     {
         //toggleBulletTransparency(true);
         //hasPlayedSound = false;
+        animator = GetComponent<Animator>();
         hasHit = false;
-        //hitPlayDelay = 0.1f;
+        currentAnimDelay = animationDelay;
         SetTrajectory();
     }
 
@@ -55,7 +58,11 @@ public class EnemyBullet : MonoBehaviour
     {
         //Move the bullet towards the direction
         if (!hasHit)
+        {
             rb.velocity = direction * Time.deltaTime * speed;
+            float angulo = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.AngleAxis(angulo, Vector3.forward);
+        }
         else
             TriggerHitBehavior();
     }
@@ -65,21 +72,25 @@ public class EnemyBullet : MonoBehaviour
     /// </summary>
     private void TriggerHitBehavior()
     {
+        rb.velocity = Vector3.zero;
         //Play hit sound
         /*if (!hasPlayedSound)
         {
             hitSound.Play();
             toggleBulletTransparency(false);
             hasPlayedSound = true;
-        }
+        }*/
+
         //Play hit animation
-        if (hitPlayDelay >= 0)
+        if (currentAnimDelay >= 0)
         {
-            hitEffect.Play();
-            hitPlayDelay -= Time.deltaTime;
+            animator.SetTrigger("hasHit");
+            currentAnimDelay -= Time.deltaTime;
         }
-        else*/
+        else
+        {
             gameObject.SetActive(false);
+        }
     }
 
     /// <summary>

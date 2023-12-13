@@ -2,8 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BaseEnemyShoot : MonoBehaviour
+public class OldEnemyShoot : MonoBehaviour
 {
+    //Inform the spawners wether they can spawn or not
+    public bool canShoot = false;
+
     //Time until shot
     [SerializeField] float shotCooldown;
     float timeTillShot;
@@ -12,21 +15,25 @@ public class BaseEnemyShoot : MonoBehaviour
     [SerializeField] GameObject objectToSpawn;
 
     //Object pool
+    [SerializeField] GameObject bulletObjectPool;
     ObjectPool objectPoolScript;
 
-    void Awake()
+    void Start()
     {
         timeTillShot = shotCooldown;
-        GameObject objectPool = GameObject.FindGameObjectWithTag("MageBulletPool");
-        objectPoolScript = objectPool.GetComponent<ObjectPool>();
+        objectPoolScript = bulletObjectPool.GetComponent<ObjectPool>();
     }
 
     void Update()
     {
+        if (canShoot)
+        {
             if (timeTillShot >= 0)
                 timeTillShot -= Time.deltaTime;
             else
                 Shoot();
+        }
+
     }
 
     /// <summary>
@@ -40,8 +47,10 @@ public class BaseEnemyShoot : MonoBehaviour
             obj.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
             obj.SetActive(true);
         }
-        else
+        else 
+        {
             print("No bullet found.");
+        }
         timeTillShot = shotCooldown;
     }
 }

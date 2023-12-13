@@ -9,18 +9,24 @@ public class BaseEnemyBehavior : MonoBehaviour
     
     GameObject player;
 
-    private bool isDead;
+    SpriteRenderer spriteRenderer;
 
+    private bool isDead;
 
     void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
     }
 
     void Update()
     {
         if (isDead)
             manageDeath();
+        if (player.transform.position.x - transform.position.x < 0)
+            spriteRenderer.flipX = false;
+        else
+            spriteRenderer.flipX = true;
     }
 
     private void manageDeath()

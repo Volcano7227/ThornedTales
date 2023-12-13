@@ -7,14 +7,14 @@ public class RangeEnemyMovement : MonoBehaviour
 
     NavMeshAgent agent;
     Transform player;
-    BaseEnemyShoot shootScript;
+    OldEnemyShoot shootScript;
 
     void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         agent = GetComponent<NavMeshAgent>();
         agent.destination = player.position;
-        shootScript = GetComponent<BaseEnemyShoot>();
+        shootScript = GetComponent<OldEnemyShoot>();
     }
 
     // Update is called once per frame

@@ -42,6 +42,18 @@ public class BaseEnemyBehavior : MonoBehaviour
             isDead = true;
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "PlayerBullet")
+            inflictDamage(1);
+    }
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            print("Player hit");//player.inflictDamage(1);
+        }
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "PlayerBullet")

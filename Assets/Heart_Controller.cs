@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class Heart_Controller : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public Animator anim;
+
+    public void Pop()
     {
-        
+        anim.SetTrigger("Pop");
     }
 
-    // Update is called once per frame
-    void Update()
+    public void DestroyHeart()
     {
-        
+        Destroy(gameObject);
     }
 }

@@ -36,6 +36,7 @@ public class PlayerMovement : MonoBehaviour
         animator.SetFloat("Horizontal", movementInput.x);
         animator.SetFloat("Vertical", movementInput.y);
 
+        //video reference: https://www.youtube.com/watch?v=EWo3tAG-iAg
         float shootHor = Input.GetAxis("Shoot_Horizontal");
         float shootVer = Input.GetAxis("Shoot_Vertical");
         if (shootHor != 0 && Time.time > lastFire + fireDelay)

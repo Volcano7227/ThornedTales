@@ -5,12 +5,13 @@ using UnityEngine;
 
 public class Player_Controller : MonoBehaviour
 {
-    [SerializeField] int HitCount;
+    [SerializeField] public int HitCount;
 
     public Animator animator;
     public BoxCollider2D coll;
     public Rigidbody2D rb;
     public PlayerMovement movement;
+    public Heart_Spawner hearts;
 
     // Start is called before the first frame update
     void Start()
@@ -22,17 +23,16 @@ public class Player_Controller : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         HitCount -= 1;
+        hearts.PopHeart();
         coll.enabled = false;
         if (HitCount <= 0)
         {
             HitCount = 0;
             animator.SetTrigger("Death");
-            Debug.Log("Death");
         }
         else if (HitCount > 0)
         {
             animator.SetTrigger("Hit");
-            Debug.Log("Hit");
         }   
     }
 

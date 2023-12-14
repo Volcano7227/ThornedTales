@@ -290,7 +290,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -875, y: 450}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &806561606
@@ -305,6 +305,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bafb70b3af27054eb92f4dd578747fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Heart: {fileID: 8023233949402987265, guid: 49a78b27edab9d34694e16019e0c0f11, type: 3}
+  controller: {fileID: 4836477708867246995}
 --- !u!1 &1096144642
 GameObject:
   m_ObjectHideFlags: 0
@@ -608,6 +610,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 4836477708867246998}
     - target: {fileID: 124961917531676751, guid: 5b79f89366128154c9bfe0e195860f62, type: 3}
+      propertyPath: hearts
+      value: 
+      objectReference: {fileID: 806561606}
+    - target: {fileID: 124961917531676751, guid: 5b79f89366128154c9bfe0e195860f62, type: 3}
       propertyPath: HitCount
       value: 5
       objectReference: {fileID: 0}
@@ -688,6 +694,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5b79f89366128154c9bfe0e195860f62, type: 3}
+--- !u!114 &4836477708867246995 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 124961917531676751, guid: 5b79f89366128154c9bfe0e195860f62, type: 3}
+  m_PrefabInstance: {fileID: 4836477708867246994}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5805fac5e0e18bf428066ae3af488762, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &4836477708867246997 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8650562422835307375, guid: 5b79f89366128154c9bfe0e195860f62, type: 3}

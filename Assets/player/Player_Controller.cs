@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Player_Controller : MonoBehaviour
 {
-    [SerializeField] int HitPoints;
+    [SerializeField] int HitCount;
 
     public Animator animator;
     public BoxCollider2D coll;
@@ -21,15 +21,15 @@ public class Player_Controller : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        HitPoints -= 5;
+        HitCount -= 1;
         coll.enabled = false;
-        if (HitPoints <= 0)
+        if (HitCount <= 0)
         {
-            HitPoints = 0;
+            HitCount = 0;
             animator.SetTrigger("Death");
             Debug.Log("Death");
         }
-        else if (HitPoints > HitPoints - 5)
+        else if (HitCount > 0)
         {
             animator.SetTrigger("Hit");
             Debug.Log("Hit");

@@ -8,7 +8,7 @@ public class Door : MonoBehaviour
     [SerializeField] Vector2 offset;
     [SerializeField] int playerLayer;
     [SerializeField] GameObject lockedCounterPart;
-
+    [SerializeField] GameObject ColliderInvisible;
     public GameObject LockedConterPart => lockedCounterPart;
     Room parentRoom;
     Vector3 spawnOffSet;
@@ -20,6 +20,10 @@ public class Door : MonoBehaviour
     {
         parentRoom = GetComponentInParent<Room>();
         spawnOffSet = new Vector3(offset.x, offset.y, 0);
+    }
+    private void OnEnable()
+    {
+        ColliderInvisible.SetActive(false);
     }
     public void ConnectTo(Door door) => LeadTo = door;
 

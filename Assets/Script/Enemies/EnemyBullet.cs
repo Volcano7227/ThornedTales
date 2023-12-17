@@ -112,6 +112,7 @@ public class EnemyBullet : MonoBehaviour
     /// <param name="collider"></param>
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log(other.name);
         if (other.gameObject.tag == "Player" && player != null)
         {
             print("Player hit");//player.inflictDamage(1);

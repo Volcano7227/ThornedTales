@@ -5,19 +5,22 @@ TagManager:
   serializedVersion: 2
   tags:
   - StartingRoom
+  - MageBulletPool
+  - PlayerBullet
+  - EnemyBullet
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Player
+  - 
   - Water
   - UI
   - Player
-  - Player_Bullet
-  - 
-  - 
-  - 
-  - 
+  - PlayerBullet
+  - Enemy
+  - EnemyBullet
+  - Ground
+  - Wall
   - 
   - 
   - 

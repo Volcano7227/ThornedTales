@@ -24,7 +24,10 @@ public class Heart_Spawner : MonoBehaviour
 
     public void PopHeart()
     {
-        GameObject heart = hearts.Pop();
-        heart.GetComponent<Heart_Controller>().Pop();
+        if (hearts.Count > 0)
+        {
+            GameObject heart = hearts.Pop();
+            heart.GetComponent<Heart_Controller>().Pop();
+        }
     }
 }

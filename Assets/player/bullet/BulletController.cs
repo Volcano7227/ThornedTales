@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class BulletController : MonoBehaviour
 {
-    public float lifeTime;
-    public Animator animator;
-    public Rigidbody2D rb;
-    public BoxCollider2D coll;
+     [SerializeField]float lifeTime;
+     public Animator animator;
+     Rigidbody2D rb;
+     BoxCollider2D coll;
 
     // Start is called before the first frame update
     void Start()

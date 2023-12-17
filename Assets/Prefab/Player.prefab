@@ -31,7 +31,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5865476518469827174}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 1}
   m_ConstrainProportionsScale: 0
@@ -176,7 +176,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.00882953, y: -0.00914894}
@@ -204,11 +204,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efc1a8517b2c8f3428cc054b69c91302, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DefaultSpeed: 0
+  defaultSpeed: 3
+  contactFilter:
+    useTriggers: 0
+    useLayerMask: 0
+    useDepth: 0
+    useOutsideDepth: 0
+    useNormalAngle: 0
+    useOutsideNormalAngle: 0
+    layerMask:
+      serializedVersion: 2
+      m_Bits: 0
+    minDepth: 0
+    maxDepth: 0
+    minNormalAngle: 0
+    maxNormalAngle: 0
   animator: {fileID: 8962932339546500325}
-  projectile: {fileID: 0}
-  bulletSpeed: 0
-  fireDelay: 0
+  projectile: {fileID: 2295487465848597534, guid: eba9b5836c42ceb4ab23882e64ff196b, type: 3}
+  bulletSpeed: 10
+  fireDelay: 0.5
 --- !u!95 &8962932339546500325
 Animator:
   serializedVersion: 5
@@ -242,5 +256,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5805fac5e0e18bf428066ae3af488762, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HitCount: 5
   animator: {fileID: 8962932339546500325}
   coll: {fileID: 6582559997270582554}
+  rb: {fileID: 8853191016921996709}
+  movement: {fileID: 8650562422835307375}
+  hearts: {fileID: 0}

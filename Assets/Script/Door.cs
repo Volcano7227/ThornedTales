@@ -46,11 +46,13 @@ public class Door : MonoBehaviour
     {
         LockedConterPart.SetActive(true);
         gameObject.SetActive(false);
+        ColliderInvisible.SetActive(true);
     }
     public void UnlockDoor()
     {
         LockedConterPart.SetActive(false);
         gameObject.SetActive(true);
+        ColliderInvisible.SetActive(false);
     }
     private void OnDrawGizmos()
     {

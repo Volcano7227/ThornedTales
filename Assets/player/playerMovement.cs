@@ -91,7 +91,6 @@ public class PlayerMovement : MonoBehaviour
         );
         GameObject bullet = Instantiate(projectile, transform.position, 
             Quaternion.Euler(transform.rotation.x, transform.rotation.y, transform.rotation.z + 90));
-        bullet.AddComponent<Rigidbody2D>().gravityScale = 0;
         Rigidbody2D bulletRB = bullet.GetComponent<Rigidbody2D>();
         bulletRB.velocity = direction * bulletSpeed;
         float angulo = Mathf.Atan2(bulletRB.velocity.y, bulletRB.velocity.x) * Mathf.Rad2Deg;

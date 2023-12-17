@@ -22,19 +22,21 @@ public class Player_Controller : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.layer == 11)
-        HitCount -= 1;
-        hearts.PopHeart();
-        coll.enabled = false;
-        if (HitCount <= 0)
+        if (collision.gameObject.layer == 11)
         {
-            HitCount = 0;
-            animator.SetTrigger("Death");
+            HitCount -= 1;
+            hearts.PopHeart();
+            coll.enabled = false;
+            if (HitCount <= 0)
+            {
+                HitCount = 0;
+                animator.SetTrigger("Death");
+            }
+            else if (HitCount > 0)
+            {
+                animator.SetTrigger("Hit");
+            }
         }
-        else if (HitCount > 0)
-        {
-            animator.SetTrigger("Hit");
-        }   
     }
     public void IFrames()
     {

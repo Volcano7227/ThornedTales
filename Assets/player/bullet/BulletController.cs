@@ -7,7 +7,6 @@ public class BulletController : MonoBehaviour
      [SerializeField]float lifeTime;
      public Animator animator;
      Rigidbody2D rb;
-     BoxCollider2D coll;
 
     // Start is called before the first frame update
     void Start()
@@ -20,7 +19,6 @@ public class BulletController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         rb.velocity = Vector3.zero;
-        coll.enabled = false;
         animator.SetTrigger("Explode");
     }
 

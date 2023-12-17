@@ -64,7 +64,7 @@ GameObject:
   - component: {fileID: 1533351657354743955}
   - component: {fileID: 4111117111330921970}
   - component: {fileID: 252133124901404425}
-  m_Layer: 8
+  m_Layer: 12
   m_Name: Tilemap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -275,7 +275,7 @@ GameObject:
   - component: {fileID: 5265610084900323376}
   - component: {fileID: 6474261655775197010}
   - component: {fileID: 3425537525653996219}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: ColliderInvis (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -380,7 +380,7 @@ GameObject:
   - component: {fileID: 4099932274536057073}
   - component: {fileID: 4992870994334722119}
   - component: {fileID: 6722540734627180150}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: ColliderInvis (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -485,7 +485,7 @@ GameObject:
   - component: {fileID: 2055675371840915688}
   - component: {fileID: 9090446877263819501}
   - component: {fileID: 3256889557900269834}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: ColliderInvis (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -747,7 +747,7 @@ GameObject:
   - component: {fileID: 6718565230994761310}
   - component: {fileID: 6004607511216067593}
   - component: {fileID: 2572487219960468566}
-  m_Layer: 8
+  m_Layer: 12
   m_Name: LeftDoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -855,7 +855,7 @@ GameObject:
   - component: {fileID: 4345758890125267367}
   - component: {fileID: 2975056230246728320}
   - component: {fileID: 2289878786049835264}
-  m_Layer: 8
+  m_Layer: 12
   m_Name: RigthDoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -962,7 +962,7 @@ GameObject:
   - component: {fileID: 516478020045437863}
   - component: {fileID: 1521925012078635402}
   - component: {fileID: 8606512714652017468}
-  m_Layer: 8
+  m_Layer: 12
   m_Name: Tilemap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1129,7 +1129,7 @@ GameObject:
   - component: {fileID: 2017046827383733546}
   - component: {fileID: 5646513149651469295}
   - component: {fileID: 5249450051949766671}
-  m_Layer: 8
+  m_Layer: 12
   m_Name: BottomDoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1236,7 +1236,7 @@ GameObject:
   - component: {fileID: 8247422686140175222}
   - component: {fileID: 6331940562897737549}
   - component: {fileID: 360174139037218896}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: ColliderInvis
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1341,7 +1341,7 @@ GameObject:
   - component: {fileID: 2721378404904258023}
   - component: {fileID: 1918957212072549245}
   - component: {fileID: 5996634676935936774}
-  m_Layer: 8
+  m_Layer: 12
   m_Name: Tilemap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1784,7 +1784,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5873744909297204285}
   - component: {fileID: 7551680832876613649}
-  m_Layer: 8
+  m_Layer: 12
   m_Name: TopDoorLocked
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1861,7 +1861,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2501889948308365132}
   - component: {fileID: 8143769106958699596}
-  m_Layer: 8
+  m_Layer: 12
   m_Name: BottomDoorLocked
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1908,7 +1908,7 @@ GameObject:
   - component: {fileID: 5910507820128762375}
   - component: {fileID: 5745972164981950398}
   - component: {fileID: 4060397782409814884}
-  m_Layer: 8
+  m_Layer: 12
   m_Name: TopDoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2015,7 +2015,7 @@ GameObject:
   - component: {fileID: 4581239455232590402}
   - component: {fileID: 3226380995745733655}
   - component: {fileID: 5216355802204244522}
-  m_Layer: 8
+  m_Layer: 12
   m_Name: Tilemap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2181,7 +2181,7 @@ GameObject:
   - component: {fileID: 3430417229991646696}
   - component: {fileID: 6694966712275751729}
   - component: {fileID: 2989849058638619762}
-  m_Layer: 8
+  m_Layer: 12
   m_Name: Tilemap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2346,7 +2346,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6759413616626734163}
   - component: {fileID: 8824466860027807282}
-  m_Layer: 8
+  m_Layer: 12
   m_Name: RigthDoorLocked
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2392,7 +2392,7 @@ GameObject:
   - component: {fileID: 1385881185207656307}
   - component: {fileID: 2749031916289643105}
   - component: {fileID: 3480888123523580083}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Tilemap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3412,7 +3412,7 @@ GameObject:
   - component: {fileID: 4934723861205074686}
   - component: {fileID: 812287597463800655}
   - component: {fileID: 4603299748144071563}
-  m_Layer: 8
+  m_Layer: 12
   m_Name: Tilemap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3578,7 +3578,7 @@ GameObject:
   - component: {fileID: 1237764387038066759}
   - component: {fileID: 3239612638366348429}
   - component: {fileID: 4433578333495861686}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: ColliderInvis (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3683,7 +3683,7 @@ GameObject:
   - component: {fileID: 308446962403194792}
   - component: {fileID: 446913100103665632}
   - component: {fileID: 8885564638601023296}
-  m_Layer: 8
+  m_Layer: 12
   m_Name: Tilemap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4005,7 +4005,7 @@ GameObject:
   - component: {fileID: 5757459822280400320}
   - component: {fileID: 7984848055401504538}
   - component: {fileID: 5505894499374394608}
-  m_Layer: 8
+  m_Layer: 12
   m_Name: Tilemap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4169,7 +4169,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5783473265052949909}
-  m_Layer: 8
+  m_Layer: 12
   m_Name: Doors
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4305,7 +4305,7 @@ GameObject:
   - component: {fileID: 2927785652557919061}
   - component: {fileID: 3961580876345137823}
   - component: {fileID: 8584283903679179920}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: ColliderInvis (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4501,7 +4501,7 @@ GameObject:
   - component: {fileID: 5957737308936144544}
   - component: {fileID: 3529483460522260813}
   - component: {fileID: 4796929445138533662}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: ColliderInvis (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4605,7 +4605,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8817537329582765603}
   - component: {fileID: 8018082208550872036}
-  m_Layer: 8
+  m_Layer: 12
   m_Name: LeftDoorLocked
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4806,7 +4806,7 @@ GameObject:
   m_Component:
   - component: {fileID: 441090107672947611}
   - component: {fileID: 1640682698451747912}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Walls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4951,7 +4951,7 @@ GameObject:
   - component: {fileID: 3254492819083320323}
   - component: {fileID: 7916600084522685299}
   - component: {fileID: 5019207207384639407}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: ColliderInvis (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

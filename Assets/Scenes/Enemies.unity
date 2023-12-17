@@ -193,7 +193,7 @@ GameObject:
   - component: {fileID: 247670478}
   m_Layer: 0
   m_Name: GameObject
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -540,43 +540,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5e4cf4d2afdfb540bfa39f33f071488, type: 3}
---- !u!1 &1555359404 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7707621080274774643, guid: 3ce5748539f325448b4f9daa079902a8, type: 3}
-  m_PrefabInstance: {fileID: 4589761446328864952}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1555359417 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 457083774750523879, guid: 3ce5748539f325448b4f9daa079902a8, type: 3}
   m_PrefabInstance: {fileID: 4589761446328864952}
   m_PrefabAsset: {fileID: 0}
---- !u!54 &1555359418
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1555359404}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 104
-  m_CollisionDetection: 0
 --- !u!1 &1653968764
 GameObject:
   m_ObjectHideFlags: 0
@@ -1032,13 +1000,11 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3455283097342582153, guid: 3ce5748539f325448b4f9daa079902a8, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 7707621080274774643, guid: 3ce5748539f325448b4f9daa079902a8, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1555359418}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3ce5748539f325448b4f9daa079902a8, type: 3}
 --- !u!1001 &7151909028987046129
 PrefabInstance:

@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ranged Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 1561932843461287285, guid: 97f2a96916aebf747812c83236bf9eda, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 991441a3fae31cc46873f3e1ddc5f22f, type: 2}
     - target: {fileID: 2595089278154304379, guid: 97f2a96916aebf747812c83236bf9eda, type: 3}
       propertyPath: m_Speed
       value: 3

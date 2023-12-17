@@ -15,8 +15,9 @@ using System;
 public class RoomManager : MonoBehaviour
 {
     enum Direction { Up,Down,Left,Rigth }
-    [SerializeField] GameObject defaultRoomPrefab;
+    [SerializeField] GameObject defaultRoom;
     [SerializeField] GameObject bossRoomPrefab;
+    [SerializeField] GameObject[] VariantRoomPrefabList;
     [SerializeField] int maxRooms = 10;
     [SerializeField] int minRooms = 6;
     [SerializeField]int gridSizeX = 20;
@@ -26,6 +27,7 @@ public class RoomManager : MonoBehaviour
 
     GameObject Dungeon;
 
+    System.Random random = new();
     List<GameObject> roomList = new();
 
     Queue<Vector2Int> roomQueue = new();
@@ -35,8 +37,6 @@ public class RoomManager : MonoBehaviour
 
     int roomCount;
     Vector2Int startingRoomIndex => new Vector2Int(gridSizeX / 2, gridSizeY / 2);
-
-    Room FirstRoom => Dungeon.transform.GetChild(0).GetComponent<Room>();
     Room LastRoom => Dungeon.transform.GetChild(Dungeon.transform.childCount - 1).GetComponent<Room>();
 
     bool generationComplete = false;
@@ -52,6 +52,8 @@ public class RoomManager : MonoBehaviour
     }
     IEnumerator GenerateDungeon()
     {
+
+        int i = 0;
         while (!generationComplete)
         {
             if (roomQueue.Count > 0 && roomCount < maxRooms && !generationComplete)
@@ -59,11 +61,12 @@ public class RoomManager : MonoBehaviour
                 Vector2Int roomIndex = roomQueue.Dequeue();
                 int gridX = roomIndex.x;
                 int gridY = roomIndex.y;
-
-                TryGenerateRoom(new Vector2Int(gridX - 1, gridY), defaultRoomPrefab);
-                TryGenerateRoom(new Vector2Int(gridX + 1, gridY), defaultRoomPrefab);
-                TryGenerateRoom(new Vector2Int(gridX, gridY - 1), defaultRoomPrefab);
-                TryGenerateRoom(new Vector2Int(gridX, gridY + 1), defaultRoomPrefab);
+                
+                TryGenerateRoom(new Vector2Int(gridX - 1, gridY), i % 2 == 0 ? VariantRoomPrefabList[random.Next(VariantRoomPrefabList.Length)] : defaultRoom);
+                TryGenerateRoom(new Vector2Int(gridX + 1, gridY), i % 4 == 0 ? VariantRoomPrefabList[random.Next(VariantRoomPrefabList.Length)] : defaultRoom);
+                TryGenerateRoom(new Vector2Int(gridX, gridY - 1), i % 4 == 0 ? VariantRoomPrefabList[random.Next(VariantRoomPrefabList.Length)] : defaultRoom);
+                TryGenerateRoom(new Vector2Int(gridX, gridY + 1), i % 2 == 0 ? VariantRoomPrefabList[random.Next(VariantRoomPrefabList.Length)] : defaultRoom);
+                i++;
             }
             else if (roomCount < minRooms)
             {
@@ -139,7 +142,7 @@ public class RoomManager : MonoBehaviour
         roomGrid[x, y] = 1;
         roomCount++;
 
-        var initialRoom = Instantiate(defaultRoomPrefab, GetPositionFromGridIndex(startingRoomId), Quaternion.identity, Dungeon.transform);
+        var initialRoom = Instantiate(defaultRoom, GetPositionFromGridIndex(startingRoomId), Quaternion.identity, Dungeon.transform);
 
         initialRoom.name = $"StartingRoom-{roomCount}";
         Room startingRoom = initialRoom.GetComponent<Room>();
@@ -148,8 +151,13 @@ public class RoomManager : MonoBehaviour
         startingRoom.ClearRoom();
         roomList.Add(initialRoom);
     }
-    bool TryGenerateRoom(Vector2Int roomId, GameObject RoomTypePrefab, bool randomzied = true, bool sizeLimited = true, bool adjacentFiltered = true, bool adjacentToNoRoom = false)
+    bool TryGenerateRoom(Vector2Int roomId, GameObject RoomTypePrefab = null, bool randomzied = true, bool sizeLimited = true, bool adjacentFiltered = true, bool adjacentToNoRoom = false)
     {
+        if(RoomTypePrefab == null)
+        {
+            RoomTypePrefab = defaultRoom;
+        }
+
         int x = roomId.x;
         int y = roomId.y;
         int adjacentNb = adjacentToNoRoom ? 0 : 1;

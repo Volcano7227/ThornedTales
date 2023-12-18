@@ -20,8 +20,8 @@ public class RoomManager : MonoBehaviour
     [SerializeField] GameObject[] VariantRoomPrefabList;
     [SerializeField] int maxRooms = 10;
     [SerializeField] int minRooms = 6;
-    [SerializeField]int gridSizeX = 20;
-    [SerializeField]int gridSizeY = 20;
+    [SerializeField] int gridSizeX = 20;
+    [SerializeField] int gridSizeY = 20;
     [SerializeField] int roomWidth = 20;
     [SerializeField] int roomHeight = 12;
 

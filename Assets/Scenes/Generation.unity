@@ -224,7 +224,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 467684352}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -406,7 +406,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8650562422835307375, guid: 5b79f89366128154c9bfe0e195860f62, type: 3}
       propertyPath: contactFilter.layerMask.m_Bits
-      value: 1792
+      value: 5888
       objectReference: {fileID: 0}
     - target: {fileID: 8853191016921996709, guid: 5b79f89366128154c9bfe0e195860f62, type: 3}
       propertyPath: m_BodyType
@@ -538,10 +538,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: RoomManager
       objectReference: {fileID: 0}
-    - target: {fileID: 5768911074722147567, guid: 99d08b110b7bc7a4b81a4b9255d79ec3, type: 3}
-      propertyPath: bossRoomPrefab
-      value: 
-      objectReference: {fileID: 29604558801222284, guid: e3776eee0b4f39740a8182ff5a0d5f38, type: 3}
     - target: {fileID: 8655607270309379819, guid: 99d08b110b7bc7a4b81a4b9255d79ec3, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5.648337

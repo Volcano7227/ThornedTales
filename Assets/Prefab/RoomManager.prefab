@@ -179,7 +179,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultRoom: {fileID: 29604558801222284, guid: e3776eee0b4f39740a8182ff5a0d5f38, type: 3}
-  bossRoomPrefab: {fileID: 6427894766971666246, guid: acdd783797b9e39429d8e6b482679b92, type: 3}
+  bossRoomPrefab: {fileID: 29604558801222284, guid: e3776eee0b4f39740a8182ff5a0d5f38, type: 3}
   VariantRoomPrefabList:
   - {fileID: 29604558801222284, guid: e3776eee0b4f39740a8182ff5a0d5f38, type: 3}
   - {fileID: 7225116201928348400, guid: ef2386cc538f6e345a308596cf8fa2dd, type: 3}

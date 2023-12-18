@@ -17,8 +17,20 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2595089278154304379, guid: 97f2a96916aebf747812c83236bf9eda, type: 3}
+      propertyPath: m_Height
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2595089278154304379, guid: 97f2a96916aebf747812c83236bf9eda, type: 3}
       propertyPath: m_Radius
-      value: 0.6
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2595089278154304379, guid: 97f2a96916aebf747812c83236bf9eda, type: 3}
+      propertyPath: m_WalkableMask
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2595089278154304379, guid: 97f2a96916aebf747812c83236bf9eda, type: 3}
+      propertyPath: m_AutoTraverseOffMeshLink
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3621802699379788219, guid: 97f2a96916aebf747812c83236bf9eda, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
@@ -70,11 +82,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6890379542351782572, guid: 97f2a96916aebf747812c83236bf9eda, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.79
+      value: -7.5
       objectReference: {fileID: 0}
     - target: {fileID: 6890379542351782572, guid: 97f2a96916aebf747812c83236bf9eda, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.36
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6890379542351782572, guid: 97f2a96916aebf747812c83236bf9eda, type: 3}
       propertyPath: m_LocalPosition.z

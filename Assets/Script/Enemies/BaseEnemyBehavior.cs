@@ -21,6 +21,7 @@ public class BaseEnemyBehavior : MonoBehaviour
 
     void Update()
     {
+        Debug.Log(player.transform.position);
         if (isDead)
             manageDeath();
         if (player.transform.position.x - transform.position.x < 0)

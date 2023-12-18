@@ -10,12 +10,13 @@ public class BaseEnemyMovement : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         agent = GetComponent<NavMeshAgent>();
-        agent.destination = player.position;
+        agent.updateRotation = false;
+        agent.updateUpAxis = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        agent.destination = player.position;
+        agent.SetDestination(player.position);
     }
 }

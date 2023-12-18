@@ -39,7 +39,7 @@ public class BossBehavior : MonoBehaviour
         {
             new XOR(list),
             //new GoToTarget(agent),
-            new Steal()
+            //new Steal()
         });
     }
 

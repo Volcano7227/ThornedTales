@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public enum NodeState { Running, Success, Failure }
+public enum NodeState { Running, Success, Failure}
 public abstract class Node
 {
     protected NodeState state { get; set; }
@@ -18,9 +18,9 @@ public abstract class Node
 
     public object GetData(string key)
     {
-        if (data.TryGetValue(key, out object value))
+        if(data.TryGetValue(key, out object value))
             return value;
-        if (parent != null)
+        if(parent != null)
             return parent.GetData(key);
 
         return null;
@@ -62,6 +62,30 @@ public abstract class Node
     public abstract NodeState Evaluate();
 }
 
+public class Selector : Node
+{
+    public Selector(List<Node> n) : base(n) {}
+
+    public override NodeState Evaluate()
+    {
+        foreach(Node n in children)
+        {
+            NodeState localstate = n.Evaluate();
+            switch (localstate)
+            {
+                case NodeState.Failure:
+                    continue;
+                case NodeState.Success :
+                case NodeState.Running :
+                    state = localstate;
+                    return state;
+            }
+        }
+        state = NodeState.Failure;
+        return state;
+    }
+}
+
 public class Sequence : Node
 {
     public Sequence(List<Node> n) : base(n) { }
@@ -86,32 +110,8 @@ public class Sequence : Node
     }
 }
 
-public class Selector : Node
-{
-    public Selector(List<Node> n) : base(n) { }
-
-    public override NodeState Evaluate()
-    {
-        foreach (Node n in children)
-        {
-            NodeState localstate = n.Evaluate();
-            switch (localstate)
-            {
-                case NodeState.Failure:
-                    continue;
-                case NodeState.Success:
-                case NodeState.Running:
-                    state = localstate;
-                    return state;
-            }
-        }
-        state = NodeState.Failure;
-        return state;
-    }
-}
-
 public class Inverter : Node
-{
+{   
     public Inverter(Node n) : base()
     {
         Attach(n);
@@ -165,50 +165,11 @@ public class XOR : Node
     }
 }
 
-public class IsWithinRange : Node
+public class Steal : Node
 {
-    Transform target;
-    Transform self;
-    float detectionRange;
-
-    public IsWithinRange(Transform target, Transform self, float detectionRange)
-    {
-        this.target = target;
-        this.self = self;
-        this.detectionRange = detectionRange;
-    }
-
     public override NodeState Evaluate()
     {
-        state = NodeState.Failure;
-        if (Vector3.Distance(self.position, target.position) <= detectionRange)
-        {
-            state = NodeState.Success;
-            parent.parent.SetData("currentTarget", target);
-        }
-        return state;
-    }
-}
-
-public class GoToTarget : Node
-{
-
-    NavMeshAgent agent;
-
-    public GoToTarget(NavMeshAgent agent)
-    {
-        this.agent = agent;
-    }
-
-    public override NodeState Evaluate()
-    {
-        Transform target = (Transform)GetData("currentTarget");
-        agent.destination = target.position;
-        if (agent.remainingDistance <= agent.stoppingDistance)
-        {
-            state = NodeState.Success;
-            return state;
-        }
+        Debug.Log($"Le voleur a volé {((Transform)GetData("currentTarget")).gameObject.name}");
         state = NodeState.Running;
         return state;
     }
@@ -230,12 +191,13 @@ public class PatrolTask : Node
         this.waitTime = waitTime;
         this.agent = agent;
     }
+
     public override NodeState Evaluate()
     {
-        if (isWaiting)
+        if(isWaiting)
         {
             elapsedTime += Time.deltaTime;
-            if (elapsedTime >= waitTime)
+            if(elapsedTime >= waitTime)
             {
                 isWaiting = false;
             }
@@ -253,7 +215,57 @@ public class PatrolTask : Node
                 agent.destination = destinations[destinationIndex].position;
             }
         }
+
         state = NodeState.Running;
+        return state;
+    }
+}
+
+public class GoToTarget : Node
+{
+    
+    NavMeshAgent agent;
+
+    public GoToTarget(NavMeshAgent agent)
+    {
+        this.agent = agent;
+    }
+
+    public override NodeState Evaluate()
+    {
+        Transform target = (Transform)GetData("currentTarget");
+        agent.destination = target.position;
+        if(agent.remainingDistance <= agent.stoppingDistance)
+        {
+            state = NodeState.Success;
+            return state;
+        }
+        state = NodeState.Running;
+        return state;
+    }
+}
+
+public class IsWithinRange : Node
+{
+    Transform target;
+    Transform self;
+    float detectionRange;
+
+    public IsWithinRange(Transform target, Transform self, float detectionRange)
+    {
+        this.target = target;
+        this.self = self;
+        this.detectionRange = detectionRange;
+    }
+
+    public override NodeState Evaluate()
+    {
+        state = NodeState.Failure;
+        if (Vector3.Distance(self.position, target.position) <= detectionRange)
+        {
+            state = NodeState.Success;
+            parent.parent.SetData("currentTarget", target);
+        }
         return state;
     }
 }

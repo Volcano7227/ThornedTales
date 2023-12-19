@@ -28,6 +28,10 @@ PrefabInstance:
       propertyPath: m_Radius
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2595089278154304379, guid: 97f2a96916aebf747812c83236bf9eda, type: 3}
+      propertyPath: m_AutoBraking
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3621802699379788219, guid: 97f2a96916aebf747812c83236bf9eda, type: 3}
       propertyPath: m_Size.x
       value: 0.30802584

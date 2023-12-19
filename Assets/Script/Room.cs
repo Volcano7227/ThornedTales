@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 //From / Inspired From : https://www.youtube.com/watch?v=eK2SlZxNjiU
+[RequireComponent(typeof(SpawnerEnnemi))]
 public class Room : MonoBehaviour
 {
     [SerializeField] Door topDoor;
@@ -11,7 +12,11 @@ public class Room : MonoBehaviour
     [SerializeField] Door leftDoor;
     [SerializeField] Door rigthDoor;
     [SerializeField] Transform AnchorCam;
+    public RoomType RoomType;
 
+    public int Difficulty = 1;
+
+    SpawnerEnnemi spawnerEnnemi;
     public float timeForTransitionCam { get; private set; } = 1.5f;
     public Vector2Int RoomIndex { get; set; }
     public Door TopDoor => topDoor;
@@ -25,6 +30,7 @@ public class Room : MonoBehaviour
     bool Cleared;
     private void Awake()
     {
+        spawnerEnnemi = GetComponent<SpawnerEnnemi>();  
         DoorInTheRoom = new Door[] {TopDoor,BottomDoor,LeftDoor,RigthDoor};
         playerMovement = FindObjectOfType<PlayerMovement>();
         mainCamera = Camera.main;
@@ -63,6 +69,21 @@ public class Room : MonoBehaviour
             if (door.Active)
                 door.LockDoor();
         }
+        switch (RoomType)
+        {
+            case RoomType.Range:
+                spawnerEnnemi.SpawnEnnemi(Difficulty, false, false,true);
+                break;
+            case RoomType.Melee:
+                spawnerEnnemi.SpawnEnnemi(Difficulty,false,true);
+                break;
+            case RoomType.Tank:
+                spawnerEnnemi.SpawnEnnemi(Difficulty,true);
+                break;
+            case RoomType.Mix:
+                spawnerEnnemi.SpawnEnnemi(Difficulty);
+                break;
+        }
     }
     [ContextMenu("ClearRoom")]
     public void ClearRoom()
@@ -99,3 +120,4 @@ public class Room : MonoBehaviour
     }
 
 }
+public enum RoomType { Melee,Range,Tank,Mix}

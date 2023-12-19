@@ -14,7 +14,7 @@ using System;
   */
 public class RoomManager : MonoBehaviour
 {
-    enum Direction { Up,Down,Left,Rigth }
+    enum Direction { Up, Down, Left, Rigth }
     [SerializeField] GameObject defaultRoom;
     [SerializeField] GameObject bossRoomPrefab;
     [SerializeField] GameObject[] VariantRoomPrefabList;
@@ -61,7 +61,7 @@ public class RoomManager : MonoBehaviour
                 Vector2Int roomIndex = roomQueue.Dequeue();
                 int gridX = roomIndex.x;
                 int gridY = roomIndex.y;
-                
+
                 TryGenerateRoom(new Vector2Int(gridX - 1, gridY), i % 2 == 0 ? VariantRoomPrefabList[random.Next(VariantRoomPrefabList.Length)] : defaultRoom);
                 TryGenerateRoom(new Vector2Int(gridX + 1, gridY), i % 4 == 0 ? VariantRoomPrefabList[random.Next(VariantRoomPrefabList.Length)] : defaultRoom);
                 TryGenerateRoom(new Vector2Int(gridX, gridY - 1), i % 4 == 0 ? VariantRoomPrefabList[random.Next(VariantRoomPrefabList.Length)] : defaultRoom);
@@ -84,11 +84,11 @@ public class RoomManager : MonoBehaviour
         Debug.Log($"Generation completed - {roomCount} rooms generated");
     }
 
-    Vector2Int GetGridIdFromDirection(Direction direction,Vector2Int posInit)
+    Vector2Int GetGridIdFromDirection(Direction direction, Vector2Int posInit)
     {
         int gridX = posInit.x;
         int gridY = posInit.y;
-        
+
         switch (direction)
         {
             case Direction.Up:
@@ -110,24 +110,24 @@ public class RoomManager : MonoBehaviour
         int currentRoomListId = Dungeon.transform.childCount - 1;
         int directionI = 0;
 
-        while(!generated)
+        while (!generated)
         {
             generated = TryGenerateRoom(GetGridIdFromDirection((Direction)directionI, currentRoom.RoomIndex), bossRoomPrefab, false, false, true, false);
-            
+
             directionI++;
-            if(directionI == Enum.GetNames(typeof(Direction)).Length)
+            if (directionI == Enum.GetNames(typeof(Direction)).Length)
             {
                 directionI = 0;
                 currentRoomListId -= 1;
                 Dungeon.transform.GetChild(currentRoomListId).TryGetComponent(out currentRoom);
             }
-        } 
+        }
     }
     public bool TryGetRoomAt(Vector2Int id, out Room room)
     {
         GameObject roomObject = roomList.Find(r => r.GetComponent<Room>().RoomIndex == id);
 
-        if(roomObject != null)
+        if (roomObject != null)
             return roomObject.TryGetComponent(out room);
 
         room = null;
@@ -153,7 +153,7 @@ public class RoomManager : MonoBehaviour
     }
     bool TryGenerateRoom(Vector2Int roomId, GameObject RoomTypePrefab = null, bool randomzied = true, bool sizeLimited = true, bool adjacentFiltered = true, bool adjacentToNoRoom = false)
     {
-        if(RoomTypePrefab == null)
+        if (RoomTypePrefab == null)
         {
             RoomTypePrefab = defaultRoom;
         }
@@ -166,7 +166,7 @@ public class RoomManager : MonoBehaviour
 
         if (UnityEngine.Random.value < 0.5f && roomId != Vector2Int.zero && randomzied)
             return false;
-        
+
         if (roomGrid[x, y] != 0)
             return false;
 
@@ -176,14 +176,21 @@ public class RoomManager : MonoBehaviour
         roomQueue.Enqueue(roomId);
         roomGrid[x, y] = 1;
         roomCount++;
-        
+
         var newRoom = Instantiate(RoomTypePrefab, GetPositionFromGridIndex(roomId), Quaternion.identity, Dungeon.transform);
-        newRoom.GetComponent<Room>().RoomIndex = roomId;
+
+        Room roomComponent = newRoom.GetComponent<Room>();
+        int random = UnityEngine.Random.Range(1, 5);
+
+        roomComponent.RoomIndex = roomId;
+        roomComponent.Difficulty = random;
+        roomComponent.RoomType = (RoomType)random-1;
+
         newRoom.name = $"Room-{roomCount}";
+
         roomList.Add(newRoom);
 
         PlaceDoors(newRoom, x, y);
-        
 
         return true;
     }
@@ -205,21 +212,21 @@ public class RoomManager : MonoBehaviour
     {
         int gridX = gridId.x;
         int gridY = gridId.y;
-        return new Vector3(roomWidth * (gridX - gridSizeX / 2),roomHeight * (gridY - gridSizeY / 2));
+        return new Vector3(roomWidth * (gridX - gridSizeX / 2), roomHeight * (gridY - gridSizeY / 2));
     }
     int CountAdjacentRooms(Vector2Int roomId)
     {
         int x = roomId.x;
         int y = roomId.y;
-        int count = 0; 
+        int count = 0;
 
-        if (x > 0 && roomGrid[x - 1,y] != 0) // left
+        if (x > 0 && roomGrid[x - 1, y] != 0) // left
             count++;
-        if (x < gridSizeX -1 && roomGrid[x + 1, y] != 0) // rigth
+        if (x < gridSizeX - 1 && roomGrid[x + 1, y] != 0) // rigth
             count++;
         if (y > 0 && roomGrid[x, y - 1] != 0) // bottom
             count++;
-        if (y < gridSizeY -1 && roomGrid[x, y + 1] != 0) // top
+        if (y < gridSizeY - 1 && roomGrid[x, y + 1] != 0) // top
             count++;
 
         return count;
@@ -234,7 +241,7 @@ public class RoomManager : MonoBehaviour
             currentRoom.PlaceDoor(Vector2Int.right, rigthRoom.LeftDoor);
             rigthRoom.PlaceDoor(Vector2Int.left, currentRoom.RigthDoor);
         }
-        if (TryGetRoomAt(new Vector2Int(x - 1,y),out Room leftRoom) && roomGrid[x - 1 ,y] != 0)
+        if (TryGetRoomAt(new Vector2Int(x - 1, y), out Room leftRoom) && roomGrid[x - 1, y] != 0)
         {
             currentRoom.PlaceDoor(Vector2Int.left, leftRoom.RigthDoor);
             leftRoom.PlaceDoor(Vector2Int.right, currentRoom.LeftDoor);
@@ -244,7 +251,7 @@ public class RoomManager : MonoBehaviour
             currentRoom.PlaceDoor(Vector2Int.up, TopRoom.BottomDoor);
             TopRoom.PlaceDoor(Vector2Int.down, currentRoom.TopDoor);
         }
-        if (TryGetRoomAt(new Vector2Int(x, y - 1 ), out Room BottomRoom) && roomGrid[x, y - 1] != 0)
+        if (TryGetRoomAt(new Vector2Int(x, y - 1), out Room BottomRoom) && roomGrid[x, y - 1] != 0)
         {
             currentRoom.PlaceDoor(Vector2Int.down, BottomRoom.TopDoor);
             BottomRoom.PlaceDoor(Vector2Int.up, currentRoom.BottomDoor);

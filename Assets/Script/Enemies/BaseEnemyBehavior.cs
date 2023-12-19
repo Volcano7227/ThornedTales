@@ -9,6 +9,8 @@ public class BaseEnemyBehavior : MonoBehaviour
     
     GameObject player;
 
+    public Room ParentRoom { get; private set; }
+
     SpriteRenderer spriteRenderer;
 
     private bool isDead;
@@ -18,10 +20,12 @@ public class BaseEnemyBehavior : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
     }
-
+    private void OnEnable()
+    {
+        ParentRoom = GetComponentInParent<Room>();
+    }
     void Update()
     {
-        Debug.Log(player.transform.position);
         if (isDead)
             manageDeath();
         if (player.transform.position.x - transform.position.x < 0)
@@ -38,34 +42,13 @@ public class BaseEnemyBehavior : MonoBehaviour
 
     public void inflictDamage(int damage)
     {
-        Hp = Hp - damage;
+        Hp -= damage;
         if (Hp <= 0)
             isDead = true;
     }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "PlayerBullet")
             inflictDamage(1);
-    }
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Player")
-        {
-            print("Player hit");//player.inflictDamage(1);
-        }
-    }
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.tag == "PlayerBullet")
-            inflictDamage(1);
-    }
-
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.gameObject.tag == "Player")
-        {
-            print("Player hit");//player.inflictDamage(1);
-        }
     }
 }

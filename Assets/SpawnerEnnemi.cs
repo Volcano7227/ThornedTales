@@ -17,13 +17,29 @@ public class SpawnerEnnemi : MonoBehaviour
         ennemies.Add(ennemiTank);
         ennemies.Add(ennemiRange);
     }
+
     [ContextMenu("SpawnEnnemi")]
-    public void SpawnEnnemi()
+    public int SpawnEnnemi( int numberOfEnnemy = 1,bool heavyOnly = false, bool MeleeOnly = false, bool RangeOnly = false)
     {
-        int random = Random.Next(ennemies.Count);
+        int enemmiType;
+        int i = 0;
         foreach (Transform transform in spawningPos)
         {
-            Instantiate(ennemies[random], transform.position,transform.rotation);
+            if (i > numberOfEnnemy) return i;
+
+            //1 - Melee, 2 - Tank, 3 - Range
+            if (MeleeOnly)
+                enemmiType = 0;
+            else if (heavyOnly)
+                enemmiType = 1;
+            else if (RangeOnly)
+                enemmiType = 2;
+            else
+                enemmiType = Random.Next(ennemies.Count-1);
+
+            Instantiate(ennemies[enemmiType], transform.position,Quaternion.Euler(270,0,0),this.transform);
+            i++;
         }
+        return i;
     }
 }

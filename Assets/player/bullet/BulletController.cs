@@ -14,12 +14,14 @@ public class BulletController : MonoBehaviour
         StartCoroutine(DeathDelay());
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
+        
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         rb.velocity = Vector3.zero;
         animator.SetTrigger("Explode");
+        GetComponent<Collider2D>().enabled = false;
     }
 
     public void DestroyBullet()

@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class BulletController : MonoBehaviour
 {
-    public float lifeTime;
-    public Animator animator;
-    public Rigidbody2D rb;
-    public BoxCollider2D coll;
+     [SerializeField]float lifeTime;
+     public Animator animator;
+     Rigidbody2D rb;
 
     // Start is called before the first frame update
     void Start()
@@ -15,13 +14,14 @@ public class BulletController : MonoBehaviour
         StartCoroutine(DeathDelay());
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
+        
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         rb.velocity = Vector3.zero;
-        coll.enabled = false;
         animator.SetTrigger("Explode");
+        GetComponent<Collider2D>().enabled = false;
     }
 
     public void DestroyBullet()

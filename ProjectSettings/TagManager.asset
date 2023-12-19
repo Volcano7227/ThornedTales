@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - StartingRoom
+  - MageBulletPool
+  - PlayerBullet
   layers:
   - Default
   - TransparentFX
@@ -14,14 +16,14 @@ TagManager:
   - UI
   - Player
   - Player_Bullet
+  - Wall
+  - Sol
+  - Trou
+  - Ennemi
+  - Door
+  - Enemmi_Bullet
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - PlayerHurtBox
   - 
   - 
   - 

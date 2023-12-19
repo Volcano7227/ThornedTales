@@ -5,13 +5,13 @@ using UnityEngine;
 public class Heart_Spawner : MonoBehaviour
 {
     [SerializeField] GameObject Heart;
-    public Player_Controller controller;
+    public PlayerHealth playerHealth;
     int nbHearts;
     Stack<GameObject> hearts;
 
     void Awake()
     {
-        nbHearts = controller.HitCount;
+        nbHearts = playerHealth.HitCount;
         hearts = new Stack<GameObject>();
 
         for (int h = 0; h < nbHearts; ++h)
@@ -24,7 +24,10 @@ public class Heart_Spawner : MonoBehaviour
 
     public void PopHeart()
     {
-        GameObject heart = hearts.Pop();
-        heart.GetComponent<Heart_Controller>().Pop();
+        if (hearts.Count > 0)
+        {
+            GameObject heart = hearts.Pop();
+            heart.GetComponent<Heart_Controller>().Pop();
+        }
     }
 }

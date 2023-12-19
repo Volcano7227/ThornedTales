@@ -20,22 +20,24 @@ public class Player_Controller : MonoBehaviour
         movement = GetComponent<PlayerMovement>();
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        /*HitCount -= 1;
-        hearts.PopHeart();
-        coll.enabled = false;
-        if (HitCount <= 0)
+        if (collision.gameObject.layer == 11)
         {
-            HitCount = 0;
-            animator.SetTrigger("Death");
+            HitCount -= 1;
+            hearts.PopHeart();
+            coll.enabled = false;
+            if (HitCount <= 0)
+            {
+                HitCount = 0;
+                animator.SetTrigger("Death");
+            }
+            else if (HitCount > 0)
+            {
+                animator.SetTrigger("Hit");
+            }
         }
-        else if (HitCount > 0)
-        {
-            animator.SetTrigger("Hit");
-        }*/ 
     }
-
     public void IFrames()
     {
         StartCoroutine(InvulnerabilityTime());
@@ -46,13 +48,6 @@ public class Player_Controller : MonoBehaviour
         rb.velocity = Vector3.zero;
         movement.enabled = false;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     IEnumerator InvulnerabilityTime()
     {
         yield return new WaitForSeconds(2);

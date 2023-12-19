@@ -5,9 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - StartingRoom
+  - MageBulletPool
   - PlayerBullet
-  - EnemyBullet
-  - EnemyBulletPool
   layers:
   - Default
   - TransparentFX
@@ -16,11 +15,13 @@ TagManager:
   - Water
   - UI
   - Player
-  - PlayerBullet
-  - Enemy
-  - EnemyBullet
-  - Ground
+  - Player_Bullet
   - Wall
+  - Sol
+  - Trou
+  - Ennemi
+  - Door
+  - Enemmi_Bullet
   - 
   - 
   - 
@@ -33,8 +34,6 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - Boss
   - 
   - 
   - 

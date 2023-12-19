@@ -1,32 +1,26 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.AI;
-using UnityEngine.Pool;
+using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
-public class IsCooldownOver : Node
+public class WaitCooldown : Node
 {
     float cooldown;
     float elapsedTime = 0;
 
-    public IsCooldownOver(float cooldown)
+    public WaitCooldown(float cooldown)
     {
         this.cooldown = cooldown;
     }
 
     public override NodeState Evaluate()
     {
-        Debug.Log($"CooldownRunning");
-        elapsedTime += Time.deltaTime;
         bool isCharging = (bool)GetData("isCharging");
-
         if (!isCharging)
         {
+            elapsedTime += Time.deltaTime;
             state = NodeState.Running;
             if (elapsedTime >= cooldown)
             {
-                Debug.Log($"CooldownOver");
+                //Debug.Log($"CooldownOver");
                 state = NodeState.Success;
                 elapsedTime = 0;
             }
@@ -43,94 +37,98 @@ public class Charge : Node
     Transform target;
     GameObject self;
     Rigidbody2D rb;
-    bool isMovementDone = false;
+    int nbCharge;
+    bool firstLap = true;
+    bool isLastPass = false;
+    bool isStartingRight;
     Vector3 leftStoppingPoint;
     Vector3 rightStoppingPoint;
+    Vector3 targetPosition;
+    Vector3 currentTarget;
     float speed;
+    int i = 0;
 
-    public Charge(Transform target, GameObject self, float speed)
+    public Charge(Transform target, GameObject self, float speed, BossRoom bossRoom, int nbCharge)
     {
         this.target = target;
         this.self = self;
         this.speed = speed;
+        this.nbCharge = nbCharge;
         rb = self.GetComponent<Rigidbody2D>();
-        leftStoppingPoint = Camera.main.ScreenToWorldPoint(new Vector2(-137, 50));
-        rightStoppingPoint = Camera.main.ScreenToWorldPoint(new Vector2(15, 0));
-        Debug.Log("Left: " + leftStoppingPoint + " Right: " + rightStoppingPoint);
+        leftStoppingPoint = bossRoom.LeftSide.position;
+        rightStoppingPoint = bossRoom.RightSide.position;
     }
 
     public override NodeState Evaluate()
     {
-        parent.SetData("isCharging", true);
-        if (Camera.main.transform.position.x - self.transform.position.x > 0)
+        if (firstLap)
         {
-            Debug.Log("left");
-            rb.velocity = (rightStoppingPoint - self.transform.position).normalized * speed;
-            //rb.MovePosition(rightStoppingPoint);
-        }
-        else
-        {
-            Debug.Log("right");
-            rb.velocity = (leftStoppingPoint - self.transform.position).normalized * speed;
-            //rb.MovePosition(leftStoppingPoint);
-        }
-        state = NodeState.Running;
-        Debug.Log($"Charge {target.gameObject.name} Running");
-        Debug.Log(Vector3.Distance(self.transform.position, leftStoppingPoint));
-        Debug.Log(Vector3.Distance(self.transform.position, rightStoppingPoint));
-        if (Vector2.Distance(self.transform.position, leftStoppingPoint) < 1 || Vector2.Distance(self.transform.position, rightStoppingPoint) < 1)
-        {
-            rb.velocity = Vector3.zero;
-            parent.SetData("isCharging", false);
-            state = NodeState.Success;
-            Debug.Log($"Charge {target.gameObject.name} Success");
-        }
-        /*while (isMovementDone)
-        {
-            
-            elapsedTime += Time.deltaTime;
-            if (elapsedTime >= cooldown)
+            parent.SetData("isCharging", true);
+            state = NodeState.Running;
+            Vector3 direction;
+            targetPosition = target.position;
+            isStartingRight = Camera.main.transform.position.x - self.transform.position.x < 0;
+            if (isStartingRight)
             {
-                
-                isMovementDone = true;
+                currentTarget = rightStoppingPoint;
+                direction = new Vector3(1, 0, 0);
             }
-        }*/
-        /*if (isWaiting)
-        {
-            elapsedTime += Time.deltaTime;
-            if (elapsedTime >= cooldown)
+            else
             {
-                isWaiting = false;
+                currentTarget = leftStoppingPoint;
+                direction = new Vector3(-1, 0, 0);
             }
-            state = NodeState.Failure;
-            Debug.Log($"Charge {target.gameObject.name} Failure");
-        }
-        else
-        {
-            isWaiting = true;
-            elapsedTime = 0;*/
-        /*if (Vector3.Distance(agent.transform.position, target.position) < agent.stoppingDistance)
-        {
-        }
-        else
-        {
-            agent.destination = target.position;
-        }*/
 
+            direction.y = 0;
+            rb.velocity = direction.normalized * speed;
+            firstLap = false;
+            i = 0;
+        }
+        else if (isLastPass)
+        {
+            currentTarget = targetPosition;
+        }
+
+        if (hasArrived())
+        {
+            if (isLastPass)
+            {
+                rb.velocity = Vector3.zero;
+                parent.SetData("isCharging", false);
+                state = NodeState.Success;
+                isLastPass = false;
+                firstLap = true;
+            }
+            else
+            {
+                if (currentTarget == rightStoppingPoint)
+                    self.transform.position = new Vector3(leftStoppingPoint.x, target.position.y, self.transform.position.z);
+                else
+                    self.transform.position = new Vector3(rightStoppingPoint.x, target.position.y, self.transform.position.z);
+            }
+            if (nbCharge - 1 == i)
+            {
+                isLastPass = true;
+            }
+            i++;
+        }
         return state;
+    }
+
+    private bool hasArrived()
+    {
+        return Mathf.Abs(self.transform.position.x - currentTarget.x) < 1;
     }
 }
 
 public class Shoot : Node
 {
-    Transform target;
     Transform self;
     GameObject objectToSpawn;
     ObjectPool objectPoolScript;
 
-    public Shoot(Transform target, Transform self, GameObject objectToSpawn, string poolName)
+    public Shoot(Transform self, GameObject objectToSpawn, string poolName)
     {
-        this.target = target;
         this.self = self;
         this.objectToSpawn = objectToSpawn;
         objectPoolScript = GameObject.FindGameObjectWithTag(poolName).GetComponent<ObjectPool>();
@@ -138,7 +136,6 @@ public class Shoot : Node
 
     public override NodeState Evaluate()
     {
-        Debug.Log($"Shoot");
         Fire();
         return state;
     }

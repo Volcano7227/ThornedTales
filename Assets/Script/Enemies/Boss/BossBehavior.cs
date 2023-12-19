@@ -9,6 +9,8 @@ public class BossBehavior : MonoBehaviour
     [SerializeField] string poolName;
     [SerializeField] GameObject projectilePrefab;
     [SerializeField] float movementSpeed;
+    [SerializeField] int nbCharge = 2;
+    BossRoom bossRoom;
     GameObject player;
     Transform barrel;
     Vector3 leftBarrelPosition;
@@ -18,6 +20,7 @@ public class BossBehavior : MonoBehaviour
     void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        bossRoom = GetComponentInParent<BossRoom>();
         barrel = transform.Find("Barrel");
         leftBarrelPosition = new Vector3(-barrel.localPosition.x, barrel.localPosition.y, barrel.localPosition.z);
         rightBarrelPosition = barrel.transform.localPosition;
@@ -26,26 +29,11 @@ public class BossBehavior : MonoBehaviour
 
     private void SetupTree()
     {
-        /*root = new Sequence(new List<Node>()
-        {
-            new Sequence(new List<Node>()
-            {
-                    new IsCooldownOver(cooldown),
-                    new Charge(player.transform, gameObject)
-            }),
-            new Sequence(new List<Node>()
-            {
-                    new IsCooldownOver(cooldown),
-                    new Shoot(player.transform, barrel, projectilePrefab, poolName)
-            })
-        });*/
-
-
         root = new Sequence(new List<Node>()
         {
-                new IsCooldownOver(cooldown),
-                new Charge(player.transform, gameObject, movementSpeed),
-                new Shoot(player.transform, barrel, projectilePrefab, poolName)
+                new WaitCooldown(cooldown),
+                new Charge(player.transform, gameObject, movementSpeed, bossRoom, nbCharge),
+                new Shoot(barrel, projectilePrefab, poolName)
         });
         root.SetData("isCharging", false);
     }

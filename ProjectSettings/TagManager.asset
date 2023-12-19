@@ -7,6 +7,7 @@ TagManager:
   - StartingRoom
   - MageBulletPool
   - PlayerBullet
+  - Boss
   layers:
   - Default
   - TransparentFX
@@ -22,7 +23,7 @@ TagManager:
   - Ennemi
   - Door
   - Enemmi_Bullet
-  - 
+  - Boss
   - 
   - 
   - 

@@ -6970,8 +6970,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2241296703916277200, guid: 96cf155c754190c489b09f1fffe7d923, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5246272580998362429, guid: 96cf155c754190c489b09f1fffe7d923, type: 3}
+      propertyPath: bossHealth
+      value: 
+      objectReference: {fileID: 6012824137744025422}
     - target: {fileID: 5381366336171385627, guid: 96cf155c754190c489b09f1fffe7d923, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -7027,3 +7031,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5381366336171385627, guid: 96cf155c754190c489b09f1fffe7d923, type: 3}
   m_PrefabInstance: {fileID: 259504446994344026}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6012824137744025422 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5829951882526453524, guid: 96cf155c754190c489b09f1fffe7d923, type: 3}
+  m_PrefabInstance: {fileID: 259504446994344026}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2054589833444431242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48e6c23e503e39a4a9d2a42db191de6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -20,7 +20,7 @@ public class PlayerHealth : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == 11 || collision.gameObject.layer == 13)
+        if (collision.gameObject.layer == 11 || collision.gameObject.layer == 13 || collision.gameObject.layer == 14)
         {
             HitCount -= 1;
             hearts.PopHeart();

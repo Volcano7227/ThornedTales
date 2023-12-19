@@ -9,6 +9,7 @@ public class BossBehavior : MonoBehaviour
     [SerializeField] float movementSpeed;
     [SerializeField] int nbCharge = 2;
     [SerializeField] BaseEnemyBehavior bossHealth;
+
     GameObject player;
     Transform barrel;
     BossRoom bossRoom;

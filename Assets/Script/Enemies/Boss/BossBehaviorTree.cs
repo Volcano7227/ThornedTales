@@ -1,5 +1,4 @@
 using UnityEngine;
-using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 public class WaitCooldown : Node
 {
@@ -38,8 +37,9 @@ public class Charge : Node
     GameObject self;
     Rigidbody2D rb;
     int nbCharge;
-    bool firstLap = true;
-    bool isLastPass = false;
+    Animator animator;
+    bool isFirstLap = true;
+    bool isLastLap = false;
     bool isStartingRight;
     Vector3 leftStoppingPoint;
     Vector3 rightStoppingPoint;
@@ -48,12 +48,13 @@ public class Charge : Node
     float speed;
     int i = 0;
 
-    public Charge(Transform target, GameObject self, float speed, BossRoom bossRoom, int nbCharge)
+    public Charge(Transform target, GameObject self, float speed, BossRoom bossRoom, int nbCharge, Animator animator)
     {
         this.target = target;
         this.self = self;
         this.speed = speed;
         this.nbCharge = nbCharge;
+        this.animator = animator;
         rb = self.GetComponent<Rigidbody2D>();
         leftStoppingPoint = bossRoom.LeftSide.position;
         rightStoppingPoint = bossRoom.RightSide.position;
@@ -61,55 +62,79 @@ public class Charge : Node
 
     public override NodeState Evaluate()
     {
-        if (firstLap)
+        //State is running while the boss is charging
+        state = NodeState.Running;
+
+        //Initialise the charge if this is the first lap
+        if (isFirstLap)
         {
+            //Pause the cooldown
             parent.SetData("isCharging", true);
-            state = NodeState.Running;
+
+            //Start the charge animation
+            animator.SetBool("isCharging", true);
+
             Vector3 direction;
             targetPosition = target.position;
+
+            //Determine the charge direction
             isStartingRight = Camera.main.transform.position.x - self.transform.position.x < 0;
             if (isStartingRight)
             {
                 currentTarget = rightStoppingPoint;
                 direction = new Vector3(1, 0, 0);
+                rb.SetRotation(270);
             }
             else
             {
                 currentTarget = leftStoppingPoint;
                 direction = new Vector3(-1, 0, 0);
+                rb.SetRotation(90);
             }
+            isFirstLap = false;
+            rb.velocity = direction * speed;
 
-            direction.y = 0;
-            rb.velocity = direction.normalized * speed;
-            firstLap = false;
+            //Initialise the lap counter
             i = 0;
         }
-        else if (isLastPass)
-        {
+        else if (isLastLap) //Set the target to the player if this is the last lap
             currentTarget = targetPosition;
-        }
 
+        //If the boss has arrived at his current target
         if (hasArrived())
         {
-            if (isLastPass)
+            if (isLastLap)
             {
                 rb.velocity = Vector3.zero;
-                parent.SetData("isCharging", false);
+
+                //State is success when the charge is over
                 state = NodeState.Success;
-                isLastPass = false;
-                firstLap = true;
+
+                //Restart the cooldown
+                parent.SetData("isCharging", false);
+
+                //Stop the charge animation
+                animator.SetBool("isCharging", false);
+
+                //Reset the boss rotation
+                rb.SetRotation(0);
+
+                //Reset the laps bools
+                isLastLap = false;
+                isFirstLap = true;
             }
             else
             {
+                //If not the last lap, teleport the boss to the other side
                 if (currentTarget == rightStoppingPoint)
                     self.transform.position = new Vector3(leftStoppingPoint.x, target.position.y, self.transform.position.z);
                 else
                     self.transform.position = new Vector3(rightStoppingPoint.x, target.position.y, self.transform.position.z);
             }
+
+            //Indicate that this is the last lap
             if (nbCharge - 1 == i)
-            {
-                isLastPass = true;
-            }
+                isLastLap = true;
             i++;
         }
         return state;
@@ -148,8 +173,6 @@ public class Shoot : Node
         GameObject obj = objectPoolScript.objectPoolInstance.GetPooledObject(objectToSpawn);
         if (obj != null)
         {
-            //Vector3 distance =  + (self.position - target.position).normalized;
-            //distance.z = -0.01f;
             obj.transform.position = self.position;
             obj.SetActive(true);
             state = NodeState.Success;

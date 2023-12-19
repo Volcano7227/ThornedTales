@@ -8,6 +8,10 @@ public class PauseScreenManager : MonoBehaviour
     [SerializeField] GameObject TitleScreen;
     [SerializeField] GameObject OptionsScreen;
 
+    private void OnEnable()
+    {
+        PauseGame();
+    }
     public void Resume()
     {
         TitleScreen.SetActive(false);
@@ -15,7 +19,7 @@ public class PauseScreenManager : MonoBehaviour
     }
     public void Restart()
     {
-        SceneManager.LoadScene("");
+        SceneManager.LoadScene(1);
     }
     public void Options()
     {
@@ -37,6 +41,6 @@ public class PauseScreenManager : MonoBehaviour
     }
     public void EndGame()
     {
-        SceneManager.LoadScene("");
+        SceneManager.LoadScene(0);
     }
 }

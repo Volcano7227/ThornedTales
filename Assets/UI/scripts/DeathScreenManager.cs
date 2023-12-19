@@ -9,10 +9,10 @@ public class DeathScreenManager : MonoBehaviour
     
     public void Restart()
     {
-        SceneManager.LoadScene("");
+        SceneManager.LoadScene(1);
     }
     public void EndGame()
     {
-        SceneManager.LoadScene("");
+        SceneManager.LoadScene(0);
     }
 }

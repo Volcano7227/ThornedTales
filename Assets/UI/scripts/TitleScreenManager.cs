@@ -11,16 +11,7 @@ public class TitleScreenManager : MonoBehaviour
 
     public void Play()
     {
-        SceneManager.LoadScene("");
-    }
-    public void Resume()
-    {
-        TitleScreen.SetActive(false);
-        Time.timeScale = 1.0f;
-    }
-    public void Restart()
-    {
-        SceneManager.LoadScene("");
+        SceneManager.LoadScene(1);
     }
     public void Options()
     {
@@ -43,15 +34,6 @@ public class TitleScreenManager : MonoBehaviour
             CreditsScreen.SetActive(false);
         }
         TitleScreen.SetActive(true);
-    }
-    public void PauseGame()
-    {
-        Time.timeScale = 0.0f;
-        TitleScreen.SetActive(false);
-    }
-    public void EndGame()
-    {
-        SceneManager.LoadScene("");
     }
     public void QuitGame()
     {

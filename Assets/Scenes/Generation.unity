@@ -406,11 +406,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3145795376862302212, guid: 953ae3dc97ca6034ea865e301edefec3, type: 3}
       propertyPath: maxRooms
-      value: 2
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 3145795376862302212, guid: 953ae3dc97ca6034ea865e301edefec3, type: 3}
       propertyPath: minRooms
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4643014116527312025, guid: 953ae3dc97ca6034ea865e301edefec3, type: 3}
       propertyPath: BossHealthComponent

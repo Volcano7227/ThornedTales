@@ -22,7 +22,7 @@ public class Player_Controller : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        HitCount -= 1;
+        /*HitCount -= 1;
         hearts.PopHeart();
         coll.enabled = false;
         if (HitCount <= 0)
@@ -33,7 +33,7 @@ public class Player_Controller : MonoBehaviour
         else if (HitCount > 0)
         {
             animator.SetTrigger("Hit");
-        }   
+        }*/ 
     }
 
     public void IFrames()

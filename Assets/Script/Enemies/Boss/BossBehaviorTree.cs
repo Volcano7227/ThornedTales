@@ -2,25 +2,47 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Pool;
 
-public class Chase : Node
+public class IsCooldownOver : Node
+{
+    float cooldown;
+    float elapsedTime = 0;
+
+    public IsCooldownOver(float cooldown)
+    {
+        this.cooldown = cooldown;
+    }
+
+    public override NodeState Evaluate()
+    {
+        Debug.Log($"CooldownRunning");
+        state = NodeState.Running;
+        elapsedTime += Time.deltaTime;
+        if (elapsedTime >= cooldown)
+        {
+            Debug.Log($"CooldownOver");
+            state = NodeState.Success;
+            elapsedTime = 0;
+        }
+        return state;
+    }
+}
+public class Charge : Node
 {
     Transform target;
     Transform agent;
-    float cooldown;
-    float elapsedTime = 0;
-    bool isWaiting = false;
+    bool isMovementDone = true;
 
-    public Chase(Transform target, float cooldown, Transform agent)
+    public Charge(Transform target, Transform agent)
     {
         this.target = target;
-        this.cooldown = cooldown;
         this.agent = agent;
     }
 
     public override NodeState Evaluate()
     {
-        if (isWaiting)
+        /*if (isWaiting)
         {
             elapsedTime += Time.deltaTime;
             if (elapsedTime >= cooldown)
@@ -28,12 +50,12 @@ public class Chase : Node
                 isWaiting = false;
             }
             state = NodeState.Failure;
-            Debug.Log($"Chase {target.gameObject.name} Failure");
+            Debug.Log($"Charge {target.gameObject.name} Failure");
         }
         else
         {
             isWaiting = true;
-            elapsedTime = 0;
+            elapsedTime = 0;*/
             /*if (Vector3.Distance(agent.transform.position, target.position) < agent.stoppingDistance)
             {
             }
@@ -41,9 +63,17 @@ public class Chase : Node
             {
                 agent.destination = target.position;
             }*/
-            state = NodeState.Success;
-            Debug.Log($"Chase {target.gameObject.name} Success");
-        }
+            if (isMovementDone)
+            {
+                state = NodeState.Success;
+                Debug.Log($"Charge {target.gameObject.name} Success");
+            }
+            else
+            {
+                state = NodeState.Running;
+                Debug.Log($"Charge {target.gameObject.name} Running");
+            }
+        //}
         return state;
     }
 }
@@ -51,21 +81,43 @@ public class Chase : Node
 public class Shoot : Node
 {
     Transform target;
-    NavMeshAgent agent;
-    float cooldown;
-    float elapsedTime = 0;
-    bool isWaiting = false;
+    Transform self;
+    GameObject objectToSpawn;
+    ObjectPool objectPoolScript;
 
-    public Shoot(Transform target, float cooldown)
+    public Shoot(Transform target, Transform self, GameObject objectToSpawn, string poolName)
     {
         this.target = target;
-        this.cooldown = cooldown;
+        this.self = self;
+        this.objectToSpawn = objectToSpawn;
+        objectPoolScript = GameObject.FindGameObjectWithTag(poolName).GetComponent<ObjectPool>();
     }
 
     public override NodeState Evaluate()
     {
         Debug.Log($"Shoot");
-        state = NodeState.Running;
+        Fire();
         return state;
+    }
+
+    /// <summary>
+    /// Shoot a bullet
+    /// </summary>
+    void Fire()
+    {
+        GameObject obj = objectPoolScript.objectPoolInstance.GetPooledObject(objectToSpawn);
+        if (obj != null)
+        {
+            //Vector3 distance =  + (self.position - target.position).normalized;
+            //distance.z = -0.01f;
+            obj.transform.position = self.position;
+            obj.SetActive(true);
+            state = NodeState.Success;
+        }
+        else
+        {
+            Debug.Log("No bullet found.");
+            state = NodeState.Failure;
+        }
     }
 }

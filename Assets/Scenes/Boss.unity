@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731704, g: 0.13414727, b: 0.121078536, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -135,21 +135,29 @@ PrefabInstance:
       propertyPath: m_Name
       value: Boss
       objectReference: {fileID: 0}
+    - target: {fileID: 2241296703916277200, guid: 96cf155c754190c489b09f1fffe7d923, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 3475293665070330783, guid: 96cf155c754190c489b09f1fffe7d923, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 5246272580998362429, guid: 96cf155c754190c489b09f1fffe7d923, type: 3}
-      propertyPath: chaseCooldown
-      value: 2
+      propertyPath: poolName
+      value: EnemyBulletPool
       objectReference: {fileID: 0}
     - target: {fileID: 5381366336171385627, guid: 96cf155c754190c489b09f1fffe7d923, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.9381611
+      value: -7
       objectReference: {fileID: 0}
     - target: {fileID: 5381366336171385627, guid: 96cf155c754190c489b09f1fffe7d923, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.4988074
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5381366336171385627, guid: 96cf155c754190c489b09f1fffe7d923, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.01
       objectReference: {fileID: 0}
     - target: {fileID: 5381366336171385627, guid: 96cf155c754190c489b09f1fffe7d923, type: 3}
       propertyPath: m_LocalRotation.w
@@ -178,10 +186,6 @@ PrefabInstance:
     - target: {fileID: 5381366336171385627, guid: 96cf155c754190c489b09f1fffe7d923, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8566355124092280963, guid: 96cf155c754190c489b09f1fffe7d923, type: 3}
-      propertyPath: Hp
-      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -464,15 +468,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1591530784363623819, guid: 5b79f89366128154c9bfe0e195860f62, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.858188
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1591530784363623819, guid: 5b79f89366128154c9bfe0e195860f62, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.351961
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1591530784363623819, guid: 5b79f89366128154c9bfe0e195860f62, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.01
       objectReference: {fileID: 0}
     - target: {fileID: 1591530784363623819, guid: 5b79f89366128154c9bfe0e195860f62, type: 3}
       propertyPath: m_LocalRotation.w
@@ -522,8 +526,8 @@ GameObject:
   - component: {fileID: 1653968766}
   - component: {fileID: 1653968765}
   m_Layer: 0
-  m_Name: MageBulletPool
-  m_TagString: MageBulletPool
+  m_Name: EnemyBulletPool
+  m_TagString: EnemyBulletPool
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -542,7 +546,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectsToPool:
   - {fileID: 5301132479184668092, guid: e219a4a1e0f273b4aa2e1c9eb43e65dc, type: 3}
-  quantityPerObject: 14000000
+  - {fileID: 3725729640343643223, guid: 4b443a04cbd24b8439cd696a9d57bf91, type: 3}
+  quantityPerObject: 1400000014000000
   objectPoolInstance: {fileID: 0}
 --- !u!4 &1653968766
 Transform:

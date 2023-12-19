@@ -5,9 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - StartingRoom
-  - MageBulletPool
   - PlayerBullet
   - EnemyBullet
+  - EnemyBulletPool
   layers:
   - Default
   - TransparentFX
@@ -34,7 +34,7 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - Boss
   - 
   - 
   - 

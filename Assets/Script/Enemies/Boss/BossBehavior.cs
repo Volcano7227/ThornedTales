@@ -5,41 +5,33 @@ using UnityEngine.AI;
 
 public class BossBehavior : MonoBehaviour
 {
-    [SerializeField] float chaseCooldown = 2;
-    [SerializeField] float shootCooldown = 2;
-    [SerializeField] float detectionRange = 3;
+    [SerializeField] float cooldown = 2;
+    [SerializeField] string poolName;
+    [SerializeField] GameObject projectilePrefab;
     GameObject player;
     Transform agent;
+    Transform barrel;
+    Vector3 leftBarrelPosition;
+    Vector3 rightBarrelPosition;
     Node root;
     // Start is called before the first frame update
     void Awake()
     {
         agent = GetComponent<Transform>();
         player = GameObject.FindGameObjectWithTag("Player");
+        barrel = transform.Find("Barrel");
+        leftBarrelPosition = new Vector3(-barrel.localPosition.x, barrel.localPosition.y, barrel.localPosition.z);
+        rightBarrelPosition = barrel.transform.localPosition;
         SetupTree();
     }
 
     private void SetupTree()
     {
-        root = new Selector(new List<Node>()
+        root = new Sequence(new List<Node>()
         {
-            //ChargeTree(),
-            //new PatrolTask(destinations, waitTime, agent)
-            new Chase(player.transform, chaseCooldown, agent),
-            new Shoot(player.transform, shootCooldown)
-        });
-    }
-
-    private Node ChargeTree()
-    {
-        List<Node> list = new List<Node>();
-        list.Add(new IsWithinRange(player.transform, transform, detectionRange));
-
-        return new Sequence(new List<Node>()
-        {
-            new XOR(list),
-            //new GoToTarget(agent),
-            //new Steal()
+                new IsCooldownOver(cooldown),
+                new Charge(player.transform, agent),
+                new Shoot(player.transform, barrel, projectilePrefab, poolName)
         });
     }
 
@@ -47,5 +39,9 @@ public class BossBehavior : MonoBehaviour
     void Update()
     {
         root.Evaluate();
+        if (player.transform.position.x - transform.position.x < 0)
+            barrel.localPosition = leftBarrelPosition;
+        else
+            barrel.localPosition = rightBarrelPosition;
     }
 }

@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1496899435683563519
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5808210597813923507}
+  m_Layer: 0
+  m_Name: Barrel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5808210597813923507
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1496899435683563519}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: -0.7071068}
+  m_LocalPosition: {x: 3.5, y: 0, z: 1.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 5381366336171385627}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1527282691404366263
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12,10 +43,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Boss
       objectReference: {fileID: 0}
+    - target: {fileID: 732768416866008167, guid: 97f2a96916aebf747812c83236bf9eda, type: 3}
+      propertyPath: m_Layer
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 732768416866008167, guid: 97f2a96916aebf747812c83236bf9eda, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 1561932843461287285, guid: 97f2a96916aebf747812c83236bf9eda, type: 3}
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 8449097bf314eef4ba012e8990220e23, type: 2}
+    - target: {fileID: 2669304895683441192, guid: 97f2a96916aebf747812c83236bf9eda, type: 3}
+      propertyPath: m_Layer
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 2669304895683441192, guid: 97f2a96916aebf747812c83236bf9eda, type: 3}
+      propertyPath: m_TagString
+      value: Boss
+      objectReference: {fileID: 0}
     - target: {fileID: 3621802699379788219, guid: 97f2a96916aebf747812c83236bf9eda, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
       value: 0.54
@@ -29,8 +76,20 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 556883736566b4e039c74c6c5aad3fdd, type: 3}
     - target: {fileID: 6890379542351782572, guid: 97f2a96916aebf747812c83236bf9eda, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6890379542351782572, guid: 97f2a96916aebf747812c83236bf9eda, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6890379542351782572, guid: 97f2a96916aebf747812c83236bf9eda, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6890379542351782572, guid: 97f2a96916aebf747812c83236bf9eda, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -7
       objectReference: {fileID: 0}
     - target: {fileID: 6890379542351782572, guid: 97f2a96916aebf747812c83236bf9eda, type: 3}
       propertyPath: m_LocalPosition.y
@@ -38,7 +97,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6890379542351782572, guid: 97f2a96916aebf747812c83236bf9eda, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.01
       objectReference: {fileID: 0}
     - target: {fileID: 6890379542351782572, guid: 97f2a96916aebf747812c83236bf9eda, type: 3}
       propertyPath: m_LocalRotation.w
@@ -75,7 +134,10 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 2595089278154304379, guid: 97f2a96916aebf747812c83236bf9eda, type: 3}
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 6890379542351782572, guid: 97f2a96916aebf747812c83236bf9eda, type: 3}
+      insertIndex: 0
+      addedObject: {fileID: 5808210597813923507}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 732768416866008167, guid: 97f2a96916aebf747812c83236bf9eda, type: 3}
       insertIndex: -1
@@ -98,7 +160,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2900b804785e59649b31091b914623c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  chaseCooldown: 2
-  shootCooldown: 2
-  detectionRange: 3
+  cooldown: 2
+  poolName: MageBulletPool
+  projectilePrefab: {fileID: 5301132479184668092, guid: e219a4a1e0f273b4aa2e1c9eb43e65dc, type: 3}
+--- !u!4 &5381366336171385627 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6890379542351782572, guid: 97f2a96916aebf747812c83236bf9eda, type: 3}
+  m_PrefabInstance: {fileID: 1527282691404366263}
+  m_PrefabAsset: {fileID: 0}

@@ -1,17 +1,12 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
 using UnityEngine;
 using UnityEngine.AI;
-using static UnityEngine.GraphicsBuffer;
 
 public enum NodeState { Running, Success, Failure }
-
 public abstract class Node
 {
-    public Node Parent { get; set; }
-    protected NodeState state;
+    protected NodeState state { get; set; }
+    public Node parent = null;
     protected List<Node> children = new();
 
     Dictionary<string, object> data = new Dictionary<string, object>();
@@ -25,32 +20,36 @@ public abstract class Node
     {
         if (data.TryGetValue(key, out object value))
             return value;
-        if (Parent != null)
-            return Parent.GetData(key);
+        if (parent != null)
+            return parent.GetData(key);
+
         return null;
     }
 
-    public bool TryRemoveData(string key)
+    public bool RemoveData(string key)
     {
         if (data.Remove(key))
+        {
             return true;
-        if (Parent != null)
-            return Parent.TryRemoveData(key);
+        }
+        if (parent != null)
+            return parent.RemoveData(key);
+
         return false;
     }
 
-    public abstract NodeState Evaluate();
+
 
     public Node()
     {
-        Parent = null;
         state = NodeState.Running;
+        parent = null;
     }
 
     public Node(List<Node> pChildren)
     {
-        Parent = null;
         state = NodeState.Running;
+        parent = null;
         foreach (Node child in pChildren)
             Attach(child);
     }
@@ -58,8 +57,9 @@ public abstract class Node
     protected void Attach(Node n)
     {
         children.Add(n);
-        n.Parent = this;
+        n.parent = this;
     }
+    public abstract NodeState Evaluate();
 }
 
 public class Sequence : Node
@@ -68,75 +68,99 @@ public class Sequence : Node
 
     public override NodeState Evaluate()
     {
-        foreach (Node child in children)
+        foreach (Node n in children)
         {
-            state = child.Evaluate();
-            if (state != NodeState.Success)
+            NodeState localstate = n.Evaluate();
+            switch (localstate)
             {
-                return state;
+                case NodeState.Success:
+                    continue;
+                case NodeState.Failure:
+                case NodeState.Running:
+                    state = localstate;
+                    return state;
             }
         }
         state = NodeState.Success;
-        return NodeState.Success;
+        return state;
     }
 }
 
 public class Selector : Node
 {
-    public Selector(List<Node> n) : base(n)
-    {
-        if (n.Count == 0)
-            throw new ArgumentException();
-    }
+    public Selector(List<Node> n) : base(n) { }
 
     public override NodeState Evaluate()
     {
-        foreach (Node child in children)
+        foreach (Node n in children)
         {
-            state = child.Evaluate();
-            if (state != NodeState.Failure)
+            NodeState localstate = n.Evaluate();
+            switch (localstate)
             {
-                return state;
+                case NodeState.Failure:
+                    continue;
+                case NodeState.Success:
+                case NodeState.Running:
+                    state = localstate;
+                    return state;
             }
         }
         state = NodeState.Failure;
-        return NodeState.Failure;
+        return state;
     }
 }
 
 public class Inverter : Node
 {
-    public Inverter(List<Node> n) : base(n)
+    public Inverter(Node n) : base()
     {
-        if (n.Count != 1)
-            throw new ArgumentException();
+        Attach(n);
     }
 
     public override NodeState Evaluate()
     {
-        NodeState childState = children[0].Evaluate();
-        if (childState == NodeState.Success)
-            state = NodeState.Failure;
-        else if (childState == NodeState.Failure)
-            state = NodeState.Success;
-        else
-            state = NodeState.Running;
+        switch (children[0].Evaluate())
+        {
+            case NodeState.Success:
+                state = NodeState.Failure;
+                break;
+            case NodeState.Failure:
+                state = NodeState.Success;
+                break;
+            case NodeState.Running:
+                state = NodeState.Running;
+                break;
+        }
         return state;
     }
 }
 
-public class Tautologie : Node
+public class XOR : Node
 {
-    public Tautologie() : base() { }
+    public XOR(List<Node> n) : base(n) { }
+
     public override NodeState Evaluate()
     {
-        Node root = Parent;
-        while (root.Parent != null)
-            root = root.Parent;
-        root.SetData("prof", "Phil");
-
-
-        state = NodeState.Success;
+        int nbSuccess = 0;
+        state = NodeState.Failure;
+        foreach (Node n in children)
+        {
+            switch (n.Evaluate())
+            {
+                case NodeState.Success:
+                    nbSuccess++;
+                    state = NodeState.Success;
+                    break;
+                case NodeState.Running:
+                    state = NodeState.Running;
+                    return state;
+            }
+            if (nbSuccess > 1)
+            {
+                state = NodeState.Failure;
+                break;
+            }
+        }
         return state;
     }
 }
@@ -147,42 +171,45 @@ public class IsWithinRange : Node
     Transform self;
     float detectionRange;
 
-    public IsWithinRange(Transform target, Transform self, float detectionRange) : base()
+    public IsWithinRange(Transform target, Transform self, float detectionRange)
     {
         this.target = target;
         this.self = self;
         this.detectionRange = detectionRange;
     }
+
     public override NodeState Evaluate()
     {
         state = NodeState.Failure;
-        if (Vector3.Distance(target.position, self.position) <= detectionRange)
+        if (Vector3.Distance(self.position, target.position) <= detectionRange)
+        {
             state = NodeState.Success;
+            parent.parent.SetData("currentTarget", target);
+        }
         return state;
     }
 }
 
 public class GoToTarget : Node
 {
-    Transform target;
-    NavMeshAgent agent;
-    float stoppingDistance;
 
-    public GoToTarget(Transform target, NavMeshAgent agent, float stoppingDistance) : base()
+    NavMeshAgent agent;
+
+    public GoToTarget(NavMeshAgent agent)
     {
-        this.target = target;
         this.agent = agent;
-        this.stoppingDistance = stoppingDistance;
     }
+
     public override NodeState Evaluate()
     {
-        if (agent.SetDestination(target.position))
-            state = NodeState.Running;
-        else
-            state = NodeState.Failure;
-        //if the distance between target and agent is inferior to the stopping distance
-        if (Vector3.Distance(agent.transform.position, target.position) <= stoppingDistance)
+        Transform target = (Transform)GetData("currentTarget");
+        agent.destination = target.position;
+        if (agent.remainingDistance <= agent.stoppingDistance)
+        {
             state = NodeState.Success;
+            return state;
+        }
+        state = NodeState.Running;
         return state;
     }
 }
@@ -190,39 +217,43 @@ public class GoToTarget : Node
 public class PatrolTask : Node
 {
     Transform[] destinations;
-    NavMeshAgent agent;
-    int currentDestination = 0;
+    int destinationIndex = 0;
 
-    float waitTime = 0;
+    NavMeshAgent agent;
+    float waitTime;
     float elapsedTime = 0;
     bool isWaiting = false;
 
-    public PatrolTask(NavMeshAgent agent, Transform[] destinations, float waitTime) : base()
+    public PatrolTask(Transform[] destinations, float waitTime, NavMeshAgent agent)
     {
-        this.agent = agent;
         this.destinations = destinations;
         this.waitTime = waitTime;
+        this.agent = agent;
     }
     public override NodeState Evaluate()
     {
-        state = NodeState.Running;
         if (isWaiting)
         {
             elapsedTime += Time.deltaTime;
             if (elapsedTime >= waitTime)
             {
                 isWaiting = false;
-                elapsedTime = 0;
-                currentDestination = (currentDestination + 1) % destinations.Length;
             }
         }
         else
         {
-            if (!agent.SetDestination(destinations[currentDestination].position))
-                state = NodeState.Failure;
-            if (Vector3.Distance(agent.transform.position, destinations[currentDestination].position) <= agent.stoppingDistance)
+            if (Vector3.Distance(agent.transform.position, destinations[destinationIndex].position) < agent.stoppingDistance)
+            {
+                destinationIndex = (destinationIndex + 1) % destinations.Length;
                 isWaiting = true;
+                elapsedTime = 0;
+            }
+            else
+            {
+                agent.destination = destinations[destinationIndex].position;
+            }
         }
+        state = NodeState.Running;
         return state;
     }
 }

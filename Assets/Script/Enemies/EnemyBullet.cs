@@ -4,13 +4,10 @@ public class EnemyBullet : MonoBehaviour
 {
     //Movement
     [SerializeField] float speed = 200f;
-    Rigidbody rb;
+    Rigidbody2D rb;
     Vector3 direction;
     Transform target;
 
-    //Hit sequence
-    /*bool hasPlayedSound = false;
-    AudioSource hitSound;*/
     [SerializeField] float animationDelay = 5f;
     float currentAnimDelay;
     Animator animator;
@@ -21,9 +18,7 @@ public class EnemyBullet : MonoBehaviour
     private void Start()
     {
         SetTrajectory();
-        rb = GetComponent<Rigidbody>();
-        /*hitSound = GetComponent<AudioSource>();
-        hitEffect = GetComponentInChildren<ParticleSystem>();*/
+        rb = GetComponent<Rigidbody2D>();
     }
 
     private void Awake()
@@ -37,8 +32,6 @@ public class EnemyBullet : MonoBehaviour
     /// </summary>
     private void OnEnable()
     {
-        //toggleBulletTransparency(true);
-        //hasPlayedSound = false;
         animator = GetComponent<Animator>();
         hasHit = false;
         currentAnimDelay = animationDelay;
@@ -73,13 +66,6 @@ public class EnemyBullet : MonoBehaviour
     private void TriggerHitBehavior()
     {
         rb.velocity = Vector3.zero;
-        //Play hit sound
-        /*if (!hasPlayedSound)
-        {
-            hitSound.Play();
-            toggleBulletTransparency(false);
-            hasPlayedSound = true;
-        }*/
 
         //Play hit animation
         if (currentAnimDelay >= 0)
@@ -94,29 +80,16 @@ public class EnemyBullet : MonoBehaviour
     }
 
     /// <summary>
-    /// Toggle the bullet's visibility
-    /// </summary>
-    /// <param name="IsActive"></param>
-    /*private void toggleBulletTransparency(bool IsActive)
-    {
-        CapsuleCollider vesselHitBox = GetComponent<CapsuleCollider>();
-        vesselHitBox.enabled = IsActive;
-        MeshRenderer[] vesselParts =- GetComponentsInChildren<MeshRenderer>();
-        foreach (MeshRenderer mesh in vesselParts)
-            mesh.enabled = IsActive;
-    }*/
-
-    /// <summary>
     /// Manage the bullet's collision
     /// </summary>
     /// <param name="collider"></param>
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log(other.name);
-        if (other.gameObject.tag == "Player" && player != null)
+        if (collision.gameObject.tag == "Player" && player != null)
         {
             print("Player hit");//player.inflictDamage(1);
         }
-        hasHit = true;
+        if (collision.gameObject.tag != "Boss")
+            hasHit = true;
     }
 }

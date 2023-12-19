@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Pool;
@@ -17,13 +18,22 @@ public class IsCooldownOver : Node
     public override NodeState Evaluate()
     {
         Debug.Log($"CooldownRunning");
-        state = NodeState.Running;
         elapsedTime += Time.deltaTime;
-        if (elapsedTime >= cooldown)
+        bool isCharging = (bool)GetData("isCharging");
+
+        if (!isCharging)
         {
-            Debug.Log($"CooldownOver");
+            state = NodeState.Running;
+            if (elapsedTime >= cooldown)
+            {
+                Debug.Log($"CooldownOver");
+                state = NodeState.Success;
+                elapsedTime = 0;
+            }
+        }
+        else
+        {
             state = NodeState.Success;
-            elapsedTime = 0;
         }
         return state;
     }
@@ -31,17 +41,60 @@ public class IsCooldownOver : Node
 public class Charge : Node
 {
     Transform target;
-    Transform agent;
-    bool isMovementDone = true;
+    GameObject self;
+    Rigidbody2D rb;
+    bool isMovementDone = false;
+    Vector3 leftStoppingPoint;
+    Vector3 rightStoppingPoint;
+    float speed;
 
-    public Charge(Transform target, Transform agent)
+    public Charge(Transform target, GameObject self, float speed)
     {
         this.target = target;
-        this.agent = agent;
+        this.self = self;
+        this.speed = speed;
+        rb = self.GetComponent<Rigidbody2D>();
+        leftStoppingPoint = Camera.main.ScreenToWorldPoint(new Vector2(-137, 50));
+        rightStoppingPoint = Camera.main.ScreenToWorldPoint(new Vector2(15, 0));
+        Debug.Log("Left: " + leftStoppingPoint + " Right: " + rightStoppingPoint);
     }
 
     public override NodeState Evaluate()
     {
+        parent.SetData("isCharging", true);
+        if (Camera.main.transform.position.x - self.transform.position.x > 0)
+        {
+            Debug.Log("left");
+            rb.velocity = (rightStoppingPoint - self.transform.position).normalized * speed;
+            //rb.MovePosition(rightStoppingPoint);
+        }
+        else
+        {
+            Debug.Log("right");
+            rb.velocity = (leftStoppingPoint - self.transform.position).normalized * speed;
+            //rb.MovePosition(leftStoppingPoint);
+        }
+        state = NodeState.Running;
+        Debug.Log($"Charge {target.gameObject.name} Running");
+        Debug.Log(Vector3.Distance(self.transform.position, leftStoppingPoint));
+        Debug.Log(Vector3.Distance(self.transform.position, rightStoppingPoint));
+        if (Vector2.Distance(self.transform.position, leftStoppingPoint) < 1 || Vector2.Distance(self.transform.position, rightStoppingPoint) < 1)
+        {
+            rb.velocity = Vector3.zero;
+            parent.SetData("isCharging", false);
+            state = NodeState.Success;
+            Debug.Log($"Charge {target.gameObject.name} Success");
+        }
+        /*while (isMovementDone)
+        {
+            
+            elapsedTime += Time.deltaTime;
+            if (elapsedTime >= cooldown)
+            {
+                
+                isMovementDone = true;
+            }
+        }*/
         /*if (isWaiting)
         {
             elapsedTime += Time.deltaTime;
@@ -56,24 +109,14 @@ public class Charge : Node
         {
             isWaiting = true;
             elapsedTime = 0;*/
-            /*if (Vector3.Distance(agent.transform.position, target.position) < agent.stoppingDistance)
-            {
-            }
-            else
-            {
-                agent.destination = target.position;
-            }*/
-            if (isMovementDone)
-            {
-                state = NodeState.Success;
-                Debug.Log($"Charge {target.gameObject.name} Success");
-            }
-            else
-            {
-                state = NodeState.Running;
-                Debug.Log($"Charge {target.gameObject.name} Running");
-            }
-        //}
+        /*if (Vector3.Distance(agent.transform.position, target.position) < agent.stoppingDistance)
+        {
+        }
+        else
+        {
+            agent.destination = target.position;
+        }*/
+
         return state;
     }
 }

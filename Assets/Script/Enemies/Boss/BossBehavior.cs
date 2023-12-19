@@ -8,16 +8,15 @@ public class BossBehavior : MonoBehaviour
     [SerializeField] float cooldown = 2;
     [SerializeField] string poolName;
     [SerializeField] GameObject projectilePrefab;
+    [SerializeField] float movementSpeed;
     GameObject player;
-    Transform agent;
     Transform barrel;
     Vector3 leftBarrelPosition;
     Vector3 rightBarrelPosition;
     Node root;
-    // Start is called before the first frame update
+
     void Awake()
     {
-        agent = GetComponent<Transform>();
         player = GameObject.FindGameObjectWithTag("Player");
         barrel = transform.Find("Barrel");
         leftBarrelPosition = new Vector3(-barrel.localPosition.x, barrel.localPosition.y, barrel.localPosition.z);
@@ -27,15 +26,30 @@ public class BossBehavior : MonoBehaviour
 
     private void SetupTree()
     {
+        /*root = new Sequence(new List<Node>()
+        {
+            new Sequence(new List<Node>()
+            {
+                    new IsCooldownOver(cooldown),
+                    new Charge(player.transform, gameObject)
+            }),
+            new Sequence(new List<Node>()
+            {
+                    new IsCooldownOver(cooldown),
+                    new Shoot(player.transform, barrel, projectilePrefab, poolName)
+            })
+        });*/
+
+
         root = new Sequence(new List<Node>()
         {
                 new IsCooldownOver(cooldown),
-                new Charge(player.transform, agent),
+                new Charge(player.transform, gameObject, movementSpeed),
                 new Shoot(player.transform, barrel, projectilePrefab, poolName)
         });
+        root.SetData("isCharging", false);
     }
 
-    // Update is called once per frame
     void Update()
     {
         root.Evaluate();

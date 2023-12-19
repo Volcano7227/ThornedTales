@@ -5,25 +5,20 @@ using UnityEngine.UI;
 
 public class BossHealthComponent : MonoBehaviour
 {
-    public Slider slider;
-
-
+    [SerializeField] Slider healthSlider;
+    
     public void SetHealth(int health)
     {
-        slider.value = health;
+        healthSlider.value = health;
     }
     public void SetMaxHealth(int health)
     {
-        slider.maxValue = health;
-        slider.value = health;
+        healthSlider.maxValue = health;
+        healthSlider.value = health;
     }
+    [ContextMenu("Show")]
+    public void Show() => gameObject.SetActive(true);
 
-    public void Show(int nbPointVie)
-    {
-
-    }
-    public void TakeHit()
-    {
-
-    }
+    [ContextMenu("Hide")]
+    public void Hide() => gameObject.SetActive(false);
 }

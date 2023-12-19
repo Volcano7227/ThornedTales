@@ -7,32 +7,35 @@ using UnityEngine;
 [RequireComponent(typeof(SpawnerEnnemi))]
 public class Room : MonoBehaviour
 {
-    [SerializeField] Door topDoor;
-    [SerializeField] Door bottomDoor;
-    [SerializeField] Door leftDoor;
-    [SerializeField] Door rigthDoor;
-    [SerializeField] Transform AnchorCam;
+    [SerializeField] protected Door topDoor;
+    [SerializeField] protected Door bottomDoor;
+    [SerializeField] protected Door leftDoor;
+    [SerializeField] protected Door rigthDoor;
+    [SerializeField] protected Transform AnchorCam;
     public RoomType RoomType;
 
     public int Difficulty = 1;
 
-    SpawnerEnnemi spawnerEnnemi;
-    public float timeForTransitionCam { get; private set; } = 1.5f;
+    protected SpawnerEnnemi spawnerEnnemi;
+    public float timeForTransitionCam { get; protected set; } = 1.5f;
     public Vector2Int RoomIndex { get; set; }
     public Door TopDoor => topDoor;
     public Door BottomDoor => bottomDoor;
     public Door LeftDoor => leftDoor;
     public Door RigthDoor => rigthDoor;
 
-    Camera mainCamera;
-    PlayerMovement playerMovement;
-    Door[] DoorInTheRoom;
-    bool Cleared;
-    private void Awake()
+    protected Camera mainCamera;
+    protected PlayerMovement playerMovement;
+    protected Door[] DoorInTheRoom;
+    protected bool Cleared;
+    protected GameManager gameManager;
+
+    protected void Awake()
     {
         spawnerEnnemi = GetComponent<SpawnerEnnemi>();  
         DoorInTheRoom = new Door[] {TopDoor,BottomDoor,LeftDoor,RigthDoor};
         playerMovement = FindObjectOfType<PlayerMovement>();
+        gameManager = FindObjectOfType<GameManager>();
         mainCamera = Camera.main;
     }
     public void PlaceDoor(Vector2Int direction, Door fromDoor)
@@ -62,7 +65,7 @@ public class Room : MonoBehaviour
         }
     }
     [ContextMenu("LockRoom")]
-    public void LockRoom()
+    public virtual void LockRoom()
     {
         foreach (Door door in DoorInTheRoom)
         {
@@ -86,7 +89,7 @@ public class Room : MonoBehaviour
         }
     }
     [ContextMenu("ClearRoom")]
-    public void ClearRoom()
+    public virtual void ClearRoom()
     {
         Cleared = true;
         foreach (Door door in DoorInTheRoom)

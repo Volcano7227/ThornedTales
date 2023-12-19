@@ -1,7 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class BossBehavior : MonoBehaviour
 {
@@ -10,9 +8,10 @@ public class BossBehavior : MonoBehaviour
     [SerializeField] GameObject projectilePrefab;
     [SerializeField] float movementSpeed;
     [SerializeField] int nbCharge = 2;
-    BossRoom bossRoom;
     GameObject player;
     Transform barrel;
+    BossRoom bossRoom;
+    Animator animator;
     Vector3 leftBarrelPosition;
     Vector3 rightBarrelPosition;
     Node root;
@@ -20,8 +19,9 @@ public class BossBehavior : MonoBehaviour
     void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        bossRoom = GetComponentInParent<BossRoom>();
         barrel = transform.Find("Barrel");
+        bossRoom = GetComponentInParent<BossRoom>();
+        animator = GetComponent<Animator>();
         leftBarrelPosition = new Vector3(-barrel.localPosition.x, barrel.localPosition.y, barrel.localPosition.z);
         rightBarrelPosition = barrel.transform.localPosition;
         SetupTree();
@@ -32,7 +32,7 @@ public class BossBehavior : MonoBehaviour
         root = new Sequence(new List<Node>()
         {
                 new WaitCooldown(cooldown),
-                new Charge(player.transform, gameObject, movementSpeed, bossRoom, nbCharge),
+                new Charge(player.transform, gameObject, movementSpeed, bossRoom, nbCharge, animator),
                 new Shoot(barrel, projectilePrefab, poolName)
         });
         root.SetData("isCharging", false);

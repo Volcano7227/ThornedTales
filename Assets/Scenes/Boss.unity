@@ -156,10 +156,6 @@ PrefabInstance:
       value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 5246272580998362429, guid: 96cf155c754190c489b09f1fffe7d923, type: 3}
-      propertyPath: cooldown
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5246272580998362429, guid: 96cf155c754190c489b09f1fffe7d923, type: 3}
       propertyPath: nbCharge
       value: 2
       objectReference: {fileID: 0}

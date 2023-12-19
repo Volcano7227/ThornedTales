@@ -11,6 +11,12 @@ public class BossHealth : BaseEnemyBehavior
         bossHealth = FindObjectOfType<BossHealthComponent>();
     }
 
+    protected override void manageDeath()
+    {
+        ParentRoom.ClearRoom();
+
+        gameObject.SetActive(false);
+    }
     public override void inflictDamage(int damage)
     {
         base.inflictDamage(damage);

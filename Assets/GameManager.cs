@@ -6,11 +6,10 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     RoomManager RoomManager;
-    BossHealthComponent BossHealthComponent;
+    [SerializeField] BossHealthComponent BossHealthComponent;
     private void Awake()
     {
         RoomManager = FindObjectOfType<RoomManager>();
-        BossHealthComponent = FindObjectOfType<BossHealthComponent>();
     }
     private void Start()
     {

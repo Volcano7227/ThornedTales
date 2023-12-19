@@ -34,7 +34,7 @@ public class BaseEnemyBehavior : MonoBehaviour
             spriteRenderer.flipX = true;
     }
 
-    private void manageDeath()
+    protected virtual void manageDeath()
     {
         ParentRoom.Difficulty--;
         if (ParentRoom.Difficulty == -1)

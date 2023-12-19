@@ -19,13 +19,13 @@ public class SpawnerEnnemi : MonoBehaviour
     }
 
     [ContextMenu("SpawnEnnemi")]
-    public int SpawnEnnemi( int numberOfEnnemy = 1,bool heavyOnly = false, bool MeleeOnly = false, bool RangeOnly = false)
+    public void SpawnEnnemi( int numberOfEnnemy = 1,bool heavyOnly = false, bool MeleeOnly = false, bool RangeOnly = false)
     {
         int enemmiType;
         int i = 0;
         foreach (Transform transform in spawningPos)
         {
-            if (i > numberOfEnnemy) return i;
+            if (i > numberOfEnnemy) return;
 
             //1 - Melee, 2 - Tank, 3 - Range
             if (MeleeOnly)
@@ -40,6 +40,6 @@ public class SpawnerEnnemi : MonoBehaviour
             Instantiate(ennemies[enemmiType], transform.position,Quaternion.Euler(270,0,0),this.transform);
             i++;
         }
-        return i;
+        return;
     }
 }

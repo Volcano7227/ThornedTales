@@ -151,7 +151,7 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 732768416866008167, guid: 97f2a96916aebf747812c83236bf9eda, type: 3}
-      insertIndex: 2
+      insertIndex: -1
       addedObject: {fileID: 6448065472937517932}
     - targetCorrespondingSourceObject: {fileID: 2669304895683441192, guid: 97f2a96916aebf747812c83236bf9eda, type: 3}
       insertIndex: -1
@@ -215,4 +215,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2309136ec83bc242887c05623e70ef8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Hp: 1
+  Hp: 3

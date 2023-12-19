@@ -5,13 +5,13 @@ using UnityEngine;
 public class Heart_Spawner : MonoBehaviour
 {
     [SerializeField] GameObject Heart;
-    public Player_Controller controller;
+    public PlayerHealth playerHealth;
     int nbHearts;
     Stack<GameObject> hearts;
 
     void Awake()
     {
-        nbHearts = controller.HitCount;
+        nbHearts = playerHealth.HitCount;
         hearts = new Stack<GameObject>();
 
         for (int h = 0; h < nbHearts; ++h)

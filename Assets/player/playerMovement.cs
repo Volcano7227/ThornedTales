@@ -13,7 +13,7 @@ public class PlayerMovement : MonoBehaviour
      * Faire Attention si on fait des powerups or shit like that augment speed
      */
     [SerializeField] float defaultSpeed = 3f;
-    [SerializeField]ContactFilter2D contactFilter;
+    [SerializeField] ContactFilter2D contactFilter;
     float speed;
     Rigidbody2D rb;
     Vector2 movementInput;

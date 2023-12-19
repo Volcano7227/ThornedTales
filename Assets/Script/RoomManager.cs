@@ -180,11 +180,11 @@ public class RoomManager : MonoBehaviour
         var newRoom = Instantiate(RoomTypePrefab, GetPositionFromGridIndex(roomId), Quaternion.identity, Dungeon.transform);
 
         Room roomComponent = newRoom.GetComponent<Room>();
-        int random = UnityEngine.Random.Range(1, 5);
+        int random = UnityEngine.Random.Range(1, 4);
 
         roomComponent.RoomIndex = roomId;
         roomComponent.Difficulty = random;
-        roomComponent.RoomType = (RoomType)random-1;
+        roomComponent.RoomType = (RoomType)random;
 
         newRoom.name = $"Room-{roomCount}";
 

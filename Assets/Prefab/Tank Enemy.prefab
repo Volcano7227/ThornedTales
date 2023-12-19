@@ -22,7 +22,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2595089278154304379, guid: 97f2a96916aebf747812c83236bf9eda, type: 3}
       propertyPath: m_Speed
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2595089278154304379, guid: 97f2a96916aebf747812c83236bf9eda, type: 3}
       propertyPath: m_Radius
@@ -145,9 +145,8 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: 835136c7dd60c884fa0b6994ccd52e67, type: 2}
     m_RemovedComponents:
-    - {fileID: 937651822234599390, guid: 97f2a96916aebf747812c83236bf9eda, type: 3}
-    - {fileID: 7542201076895015440, guid: 97f2a96916aebf747812c83236bf9eda, type: 3}
-    - {fileID: 7192302607071486260, guid: 97f2a96916aebf747812c83236bf9eda, type: 3}
+    - {fileID: 0}
+    - {fileID: 0}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -216,4 +215,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2309136ec83bc242887c05623e70ef8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Hp: 7
+  Hp: 5

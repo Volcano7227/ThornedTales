@@ -36,7 +36,9 @@ public class BaseEnemyBehavior : MonoBehaviour
 
     private void manageDeath()
     {
-        print("An ennemy died");
+        ParentRoom.Difficulty--;
+        if (ParentRoom.Difficulty == -1)
+            ParentRoom.ClearRoom();
         gameObject.SetActive(false);
     }
 

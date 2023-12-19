@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using UnityEngine;
 
-public class Player_Controller : MonoBehaviour
+public class PlayerHealth : MonoBehaviour
 {
     [SerializeField] public int HitCount;
 
     public Animator animator;
-    public BoxCollider2D coll;
+    public Collider2D coll;
     public Rigidbody2D rb;
     public PlayerMovement movement;
     public Heart_Spawner hearts;
@@ -22,7 +22,7 @@ public class Player_Controller : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == 11)
+        if (collision.gameObject.layer == 11 && collision.gameObject.layer == 13)
         {
             HitCount -= 1;
             hearts.PopHeart();

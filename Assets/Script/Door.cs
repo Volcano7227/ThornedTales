@@ -7,9 +7,13 @@ public class Door : MonoBehaviour
 {
     [SerializeField] Vector2 offset;
     [SerializeField] int playerLayer;
+    [SerializeField] GameObject bossCounterPart;
+    [SerializeField] GameObject bossCounterPartLocked;
     [SerializeField] GameObject lockedCounterPart;
     [SerializeField] GameObject ColliderInvisible;
-    public GameObject LockedConterPart => lockedCounterPart;
+    public GameObject LockedCounterPart => lockedCounterPart;
+    public GameObject BossCounterPart => bossCounterPart;
+    public GameObject BossCounterPartLocked => bossCounterPartLocked;
     Room parentRoom;
     Vector3 spawnOffSet;
     public bool Active { get; private set; }
@@ -37,21 +41,40 @@ public class Door : MonoBehaviour
         if (collision.gameObject.layer == 6)
             GoThrough(collision.gameObject);
     }
-    public void Activate()
+    public void Activate(bool bossDoor = false)
     {
-        gameObject.SetActive(true);
+        if (bossDoor)
+            bossCounterPart.SetActive(true);
+        else
+            gameObject.SetActive(true);
         Active = true;
     }
-    public void LockDoor()
+    public void LockDoor(bool bossDoor = false)
     {
-        LockedConterPart.SetActive(true);
-        gameObject.SetActive(false);
+        if (bossDoor)
+        {
+            BossCounterPartLocked.SetActive(true);
+            BossCounterPart.SetActive(false);
+        }
+        else
+        {
+            LockedCounterPart.SetActive(true);
+            gameObject.SetActive(false);
+        }
         ColliderInvisible.SetActive(true);
     }
-    public void UnlockDoor()
+    public void UnlockDoor(bool bossDoor = false)
     {
-        LockedConterPart.SetActive(false);
-        gameObject.SetActive(true);
+        if (bossDoor)
+        {
+            BossCounterPartLocked.SetActive(false);
+            BossCounterPart.SetActive(true);
+        }
+        else
+        {
+            LockedCounterPart.SetActive(false);
+            gameObject.SetActive(true);
+        }
         ColliderInvisible.SetActive(false);
     }
     private void OnDrawGizmos()

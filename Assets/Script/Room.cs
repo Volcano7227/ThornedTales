@@ -38,7 +38,7 @@ public class Room : MonoBehaviour
         gameManager = FindObjectOfType<GameManager>();
         mainCamera = Camera.main;
     }
-    public void PlaceDoor(Vector2Int direction, Door fromDoor)
+    public virtual void PlaceDoor(Vector2Int direction, Door fromDoor)
     {
         if (direction == Vector2Int.up)
         {

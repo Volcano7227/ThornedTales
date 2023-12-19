@@ -18,10 +18,37 @@ public class BossRoom : Room
             if (door.Active)
                 door.LockDoor();
         }
+        boss.SetActive(true);
     }
     public override void ClearRoom()
     {
         base.ClearRoom();
         gameManager.WinLVL();
+    }
+    public override void PlaceDoor(Vector2Int direction, Door fromDoor)
+    {
+        if (direction == Vector2Int.up)
+        {
+            topDoor.Activate();
+            topDoor.ConnectTo(fromDoor);
+        }
+
+        if (direction == Vector2Int.down)
+        {
+            bottomDoor.Activate();
+            bottomDoor.ConnectTo(fromDoor);
+        }
+
+        if (direction == Vector2Int.left)
+        {
+            leftDoor.Activate();
+            leftDoor.ConnectTo(fromDoor);
+        }
+
+        if (direction == Vector2Int.right)
+        {
+            rigthDoor.Activate();
+            rigthDoor.ConnectTo(fromDoor);
+        }
     }
 }

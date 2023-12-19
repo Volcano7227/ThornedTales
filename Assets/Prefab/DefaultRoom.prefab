@@ -866,7 +866,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   offset: {x: -7.3, y: -0.85}
   playerLayer: 6
-  bossCounterPart: {fileID: 7349089868815785603}
+  bossCounterPart: {fileID: 3796044847835693533}
   bossCounterPartLocked: {fileID: 1930290013058890045}
   lockedCounterPart: {fileID: 7349089868815785603}
   ColliderInvisible: {fileID: 6962661920392190118}
@@ -2403,8 +2403,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1812244481283630034}
   - component: {fileID: 2903397746301672973}
-  - component: {fileID: 2837625214902300180}
-  - component: {fileID: 4918675937997672519}
   m_Layer: 12
   m_Name: BottomDoorBoss
   m_TagString: Untagged
@@ -2440,69 +2438,6 @@ Grid:
   m_CellGap: {x: 0, y: 0, z: 0}
   m_CellLayout: 0
   m_CellSwizzle: 0
---- !u!114 &2837625214902300180
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2981667750170679205}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7693bff56f1944946b259dcc3a57aeac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  offset: {x: -0.83, y: -2.5}
-  playerLayer: 6
-  bossCounterPart: {fileID: 0}
-  bossCounterPartLocked: {fileID: 0}
-  lockedCounterPart: {fileID: 4452114211969101464}
-  ColliderInvisible: {fileID: 8052905655991467169}
---- !u!61 &4918675937997672519
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2981667750170679205}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.8139353, y: -4.093484}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1.171097, y: 0.9805145}
-  m_EdgeRadius: 0
 --- !u!1 &3387287287388362068
 GameObject:
   m_ObjectHideFlags: 0
@@ -2787,8 +2722,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4942785122557163902}
   - component: {fileID: 4712867590631843266}
-  - component: {fileID: 1402392748400023263}
-  - component: {fileID: 4119264323528901121}
   m_Layer: 12
   m_Name: LeftDoorBoss
   m_TagString: Untagged
@@ -2824,69 +2757,6 @@ Grid:
   m_CellGap: {x: 0, y: 0, z: 0}
   m_CellLayout: 0
   m_CellSwizzle: 0
---- !u!114 &1402392748400023263
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3796044847835693533}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7693bff56f1944946b259dcc3a57aeac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  offset: {x: -7.3, y: -0.85}
-  playerLayer: 6
-  bossCounterPart: {fileID: 0}
-  bossCounterPartLocked: {fileID: 0}
-  lockedCounterPart: {fileID: 7349089868815785603}
-  ColliderInvisible: {fileID: 6962661920392190118}
---- !u!61 &4119264323528901121
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3796044847835693533}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -9.120581, y: -0.8565807}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1.1710969}
-  m_EdgeRadius: 0
 --- !u!1 &3983456771521326698
 GameObject:
   m_ObjectHideFlags: 0
@@ -2897,8 +2767,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7932238992785976702}
   - component: {fileID: 4151191644758229993}
-  - component: {fileID: 6734507045204490743}
-  - component: {fileID: 6975119728284524692}
   m_Layer: 12
   m_Name: RigthDoorBoss
   m_TagString: Untagged
@@ -2934,69 +2802,6 @@ Grid:
   m_CellGap: {x: 0, y: 0, z: 0}
   m_CellLayout: 0
   m_CellSwizzle: 0
---- !u!114 &6734507045204490743
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3983456771521326698}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7693bff56f1944946b259dcc3a57aeac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  offset: {x: 5.8, y: -0.79}
-  playerLayer: 6
-  bossCounterPart: {fileID: 0}
-  bossCounterPartLocked: {fileID: 0}
-  lockedCounterPart: {fileID: 5203023903613472424}
-  ColliderInvisible: {fileID: 2874475988037685960}
---- !u!61 &6975119728284524692
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3983456771521326698}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 7.4610972, y: -0.85}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.97367764, y: 1}
-  m_EdgeRadius: 0
 --- !u!1 &4188881882080308408
 GameObject:
   m_ObjectHideFlags: 0
@@ -3570,8 +3375,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5632931320415768747}
   - component: {fileID: 2995934155496390338}
-  - component: {fileID: 7771087437526466433}
-  - component: {fileID: 5509513054100319180}
   m_Layer: 12
   m_Name: TopDoorBoss
   m_TagString: Untagged
@@ -3607,69 +3410,6 @@ Grid:
   m_CellGap: {x: 0, y: 0, z: 0}
   m_CellLayout: 0
   m_CellSwizzle: 0
---- !u!114 &7771087437526466433
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4752061837326234936}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7693bff56f1944946b259dcc3a57aeac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  offset: {x: -0.85, y: 2.5}
-  playerLayer: 6
-  bossCounterPart: {fileID: 0}
-  bossCounterPartLocked: {fileID: 0}
-  lockedCounterPart: {fileID: 3433028301461986464}
-  ColliderInvisible: {fileID: 6794874073306219353}
---- !u!61 &5509513054100319180
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4752061837326234936}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.79828376, y: 4.082012}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1.1946489, y: 0.83889294}
-  m_EdgeRadius: 0
 --- !u!1 &4870309094047950803
 GameObject:
   m_ObjectHideFlags: 0

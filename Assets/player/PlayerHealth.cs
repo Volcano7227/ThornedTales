@@ -2,27 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 {
     [SerializeField] public int HitCount;
+    [SerializeField] Animator animator;
+    [SerializeField] Collider2D coll;
+    [SerializeField] Rigidbody2D rb;
+    [SerializeField] PlayerMovement movement;
+    [SerializeField] Heart_Spawner hearts;
+    GameManager manager;
 
-    public Animator animator;
-    public Collider2D coll;
-    public Rigidbody2D rb;
-    public PlayerMovement movement;
-    public Heart_Spawner hearts;
-
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-        animator = GetComponent<Animator>();
-        movement = GetComponent<PlayerMovement>();
+        manager = FindObjectOfType<GameManager>();
     }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == 11 && collision.gameObject.layer == 13)
+        if (collision.gameObject.layer == 11 || collision.gameObject.layer == 13)
         {
             HitCount -= 1;
             hearts.PopHeart();
@@ -38,7 +36,7 @@ public class PlayerHealth : MonoBehaviour
             }
         }
     }
-    public void IFrames()
+    public void StartIFrames()
     {
         StartCoroutine(InvulnerabilityTime());
     }
@@ -47,6 +45,7 @@ public class PlayerHealth : MonoBehaviour
     {
         rb.velocity = Vector3.zero;
         movement.enabled = false;
+        manager.LoseLVL();
     }
     IEnumerator InvulnerabilityTime()
     {

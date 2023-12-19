@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class PauseScreenManager : MonoBehaviour
 {
+    [SerializeField] GameObject Menu;
     [SerializeField] GameObject TitleScreen;
     [SerializeField] GameObject OptionsScreen;
 
@@ -14,12 +15,13 @@ public class PauseScreenManager : MonoBehaviour
     }
     public void Resume()
     {
-        TitleScreen.SetActive(false);
+        Menu.SetActive(false);
         Time.timeScale = 1.0f;
     }
     public void Restart()
     {
         SceneManager.LoadScene(1);
+        Time.timeScale = 1.0f;
     }
     public void Options()
     {
@@ -37,10 +39,11 @@ public class PauseScreenManager : MonoBehaviour
     public void PauseGame()
     {
         Time.timeScale = 0.0f;
-        TitleScreen.SetActive(false);
+        TitleScreen.SetActive(true);
     }
     public void EndGame()
     {
         SceneManager.LoadScene(0);
+        Time.timeScale = 1.0f;
     }
 }

@@ -5,17 +5,17 @@ using UnityEngine.AI;
 
 public class BaseEnemyBehavior : MonoBehaviour
 {
-    [SerializeField] int Hp;
+    [SerializeField] int hp;
     
     GameObject player;
-
+    public int Hp => hp;
     public Room ParentRoom { get; private set; }
 
     SpriteRenderer spriteRenderer;
 
     private bool isDead;
 
-    void Awake()
+    protected virtual void  Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
@@ -42,9 +42,9 @@ public class BaseEnemyBehavior : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public void inflictDamage(int damage)
+    public virtual void inflictDamage(int damage)
     {
-        Hp -= damage;
+        hp -= damage;
         if (Hp <= 0)
             isDead = true;
     }

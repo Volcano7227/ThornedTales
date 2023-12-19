@@ -16,6 +16,7 @@ public class BossHealthComponent : MonoBehaviour
         healthSlider.maxValue = health;
         healthSlider.value = health;
     }
+
     [ContextMenu("Show")]
     public void Show() => gameObject.SetActive(true);
 

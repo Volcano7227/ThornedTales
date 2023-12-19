@@ -112,7 +112,7 @@ public class RoomManager : MonoBehaviour
 
         while (!generated)
         {
-            generated = TryGenerateRoom(GetGridIdFromDirection((Direction)directionI, currentRoom.RoomIndex), bossRoomPrefab, false, false, true, false);
+            generated = TryGenerateRoom(GetGridIdFromDirection((Direction)directionI, currentRoom.RoomIndex), bossRoomPrefab, true, false, false, true, false);
 
             directionI++;
             if (directionI == Enum.GetNames(typeof(Direction)).Length)
@@ -151,7 +151,8 @@ public class RoomManager : MonoBehaviour
         startingRoom.ClearRoom();
         roomList.Add(initialRoom);
     }
-    bool TryGenerateRoom(Vector2Int roomId, GameObject RoomTypePrefab = null, bool randomzied = true, bool sizeLimited = true, bool adjacentFiltered = true, bool adjacentToNoRoom = false)
+    bool TryGenerateRoom(Vector2Int roomId,GameObject RoomTypePrefab = null, bool isBossRoom = false, bool randomzied = true, 
+                            bool sizeLimited = true, bool adjacentFiltered = true, bool adjacentToNoRoom = false)
     {
         if (RoomTypePrefab == null)
         {
@@ -190,7 +191,7 @@ public class RoomManager : MonoBehaviour
 
         roomList.Add(newRoom);
 
-        PlaceDoors(newRoom, x, y);
+        PlaceDoors(newRoom, x, y, isBossRoom);
 
         return true;
     }
@@ -232,29 +233,29 @@ public class RoomManager : MonoBehaviour
         return count;
 
     }
-    void PlaceDoors(GameObject room, int x, int y)
+    void PlaceDoors(GameObject room, int x, int y, bool isBossRoom)
     {
         Room currentRoom = room.GetComponent<Room>();
 
         if (TryGetRoomAt(new Vector2Int(x + 1, y), out Room rigthRoom) && roomGrid[x + 1, y] != 0)
         {
-            currentRoom.PlaceDoor(Vector2Int.right, rigthRoom.LeftDoor);
-            rigthRoom.PlaceDoor(Vector2Int.left, currentRoom.RigthDoor);
+            currentRoom.PlaceDoor(Vector2Int.right, rigthRoom.LeftDoor, isBossRoom);
+            rigthRoom.PlaceDoor(Vector2Int.left, currentRoom.RigthDoor, isBossRoom);
         }
         if (TryGetRoomAt(new Vector2Int(x - 1, y), out Room leftRoom) && roomGrid[x - 1, y] != 0)
         {
-            currentRoom.PlaceDoor(Vector2Int.left, leftRoom.RigthDoor);
-            leftRoom.PlaceDoor(Vector2Int.right, currentRoom.LeftDoor);
+            currentRoom.PlaceDoor(Vector2Int.left, leftRoom.RigthDoor, isBossRoom);
+            leftRoom.PlaceDoor(Vector2Int.right, currentRoom.LeftDoor, isBossRoom);
         }
         if (TryGetRoomAt(new Vector2Int(x, y + 1), out Room TopRoom) && roomGrid[x, y + 1] != 0)
         {
-            currentRoom.PlaceDoor(Vector2Int.up, TopRoom.BottomDoor);
-            TopRoom.PlaceDoor(Vector2Int.down, currentRoom.TopDoor);
+            currentRoom.PlaceDoor(Vector2Int.up, TopRoom.BottomDoor, isBossRoom);
+            TopRoom.PlaceDoor(Vector2Int.down, currentRoom.TopDoor, isBossRoom);
         }
         if (TryGetRoomAt(new Vector2Int(x, y - 1), out Room BottomRoom) && roomGrid[x, y - 1] != 0)
         {
-            currentRoom.PlaceDoor(Vector2Int.down, BottomRoom.TopDoor);
-            BottomRoom.PlaceDoor(Vector2Int.up, currentRoom.BottomDoor);
+            currentRoom.PlaceDoor(Vector2Int.down, BottomRoom.TopDoor, isBossRoom);
+            BottomRoom.PlaceDoor(Vector2Int.up, currentRoom.BottomDoor, isBossRoom);
         }
     }
 

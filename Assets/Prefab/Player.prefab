@@ -259,7 +259,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6474989050992890202
 Transform:
   m_ObjectHideFlags: 0
@@ -409,9 +409,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5805fac5e0e18bf428066ae3af488762, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HitCount: 0
+  HitCount: 5
   animator: {fileID: 4661678628131499336}
   coll: {fileID: 7209405061416405395}
   rb: {fileID: 0}
-  movement: {fileID: 0}
+  movement: {fileID: 4962931374038819522}
   hearts: {fileID: 0}

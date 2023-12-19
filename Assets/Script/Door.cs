@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Door : MonoBehaviour
@@ -41,17 +38,18 @@ public class Door : MonoBehaviour
         if (collision.gameObject.layer == 6)
             GoThrough(collision.gameObject);
     }
-    public void Activate(bool bossDoor = false)
+    public void Activate(bool isBossRoom)
     {
-        if (bossDoor)
-            bossCounterPart.SetActive(true);
+        if(isBossRoom)
+            BossCounterPart.SetActive(true);
         else
             gameObject.SetActive(true);
+
         Active = true;
     }
-    public void LockDoor(bool bossDoor = false)
+    public void LockDoor(bool isBossRoom = false)
     {
-        if (bossDoor)
+        if (isBossRoom)
         {
             BossCounterPartLocked.SetActive(true);
             BossCounterPart.SetActive(false);
@@ -63,9 +61,9 @@ public class Door : MonoBehaviour
         }
         ColliderInvisible.SetActive(true);
     }
-    public void UnlockDoor(bool bossDoor = false)
+    public void UnlockDoor(bool isBossRoom = false)
     {
-        if (bossDoor)
+        if (isBossRoom)
         {
             BossCounterPartLocked.SetActive(false);
             BossCounterPart.SetActive(true);

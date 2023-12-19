@@ -38,29 +38,29 @@ public class Room : MonoBehaviour
         gameManager = FindObjectOfType<GameManager>();
         mainCamera = Camera.main;
     }
-    public virtual void PlaceDoor(Vector2Int direction, Door fromDoor)
+    public virtual void PlaceDoor(Vector2Int direction, Door fromDoor,bool bossRoom = false)
     {
         if (direction == Vector2Int.up)
         {
-            topDoor.Activate();
+            topDoor.Activate(bossRoom);
             topDoor.ConnectTo(fromDoor);
         }
 
         if (direction == Vector2Int.down)
         {
-            bottomDoor.Activate();
+            bottomDoor.Activate(bossRoom);
             bottomDoor.ConnectTo(fromDoor);
         }
 
         if (direction == Vector2Int.left)
         {
-            leftDoor.Activate();
+            leftDoor.Activate(bossRoom);
             leftDoor.ConnectTo(fromDoor);
         }
 
         if (direction == Vector2Int.right)
         {
-            rigthDoor.Activate();
+            rigthDoor.Activate(bossRoom);
             rigthDoor.ConnectTo(fromDoor);
         }
     }
@@ -98,7 +98,7 @@ public class Room : MonoBehaviour
                 door.UnlockDoor();
         }
     }
-    public void EnterRoom() => StartCoroutine(MoveToRoom());
+    public virtual void EnterRoom() => StartCoroutine(MoveToRoom());
     IEnumerator MoveToRoom()
     {
         playerMovement.FreezeMovement();

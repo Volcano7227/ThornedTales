@@ -5,18 +5,25 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    RoomManager roomManager;
+    RoomManager RoomManager;
+    BossHealthComponent BossHealthComponent;
     private void Awake()
     {
-        roomManager = FindObjectOfType<RoomManager>();
+        RoomManager = FindObjectOfType<RoomManager>();
+        BossHealthComponent = FindObjectOfType<BossHealthComponent>();
     }
     private void Start()
     {
         LoadLVL();
     }
+    public void StartBoss(int nbPV)
+    {
+        BossHealthComponent.Show();
+        BossHealthComponent.SetMaxHealth(nbPV);
+    }
     public void  LoadLVL()
     {
-        roomManager.StartGeneration();
+        RoomManager.StartGeneration();
     }
     public void WinLVL()
     {

@@ -10,15 +10,17 @@ public class BossBehavior : MonoBehaviour
     [SerializeField] GameObject projectilePrefab;
     [SerializeField] float movementSpeed;
     [SerializeField] int nbCharge = 2;
+    [SerializeField] BaseEnemyBehavior bossHealth;
     BossRoom bossRoom;
     GameObject player;
     Transform barrel;
     Vector3 leftBarrelPosition;
     Vector3 rightBarrelPosition;
     Node root;
-
+    GameManager gameManager;
     void Awake()
     {
+        gameManager = FindObjectOfType<GameManager>();
         player = GameObject.FindGameObjectWithTag("Player");
         bossRoom = GetComponentInParent<BossRoom>();
         barrel = transform.Find("Barrel");
@@ -27,6 +29,10 @@ public class BossBehavior : MonoBehaviour
         SetupTree();
     }
 
+    private void OnEnable()
+    {
+        gameManager.StartBoss(bossHealth.Hp);
+    }
     private void SetupTree()
     {
         root = new Sequence(new List<Node>()
